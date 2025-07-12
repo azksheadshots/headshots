@@ -11,9 +11,12 @@ import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Chec
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import AttireStyler from '@/components/attire-styler';
+import { sendEmailAction } from '@/lib/actions';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Home() {
   const [selectedPackage, setSelectedPackage] = useState('');
+  const { toast } = useToast();
 
   const handlePackageSelect = (packageName: string) => {
     setSelectedPackage(packageName);
@@ -157,6 +160,24 @@ export default function Home() {
       popular: false,
     },
   ]
+
+  const handleFormSubmit = async (formData: FormData) => {
+    const result = await sendEmailAction(formData);
+    if (result.success) {
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting us. We'll get back to you shortly.",
+      });
+      // Optionally reset the form
+      (document.getElementById('contact-form') as HTMLFormElement)?.reset();
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: result.error || "There was a problem sending your message. Please try again.",
+      });
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -454,11 +475,11 @@ export default function Home() {
             </div>
             <div className="mx-auto w-full max-w-screen-lg">
               <div className="grid lg:grid-cols-2 lg:gap-12">
-                <form className="flex flex-col gap-4 text-left">
-                  <Input name="name" placeholder="Name" type="text" />
-                  <Input name="email" placeholder="Email" type="email" />
-                  <Input name="package" type="hidden" value={selectedPackage} />
-                  <Textarea name="message" placeholder={`I'm interested in the ${selectedPackage || '...'} package`} rows={5} />
+                <form id="contact-form" action={handleFormSubmit} className="flex flex-col gap-4 text-left">
+                  <Input name="name" placeholder="Name" type="text" required />
+                  <Input name="email" placeholder="Email" type="email" required />
+                  <input name="package" type="hidden" value={selectedPackage} />
+                  <Textarea name="message" placeholder={`I'm interested in the ${selectedPackage || '...'} package`} rows={5} required />
                   <Button type="submit">Send Message</Button>
                 </form>
                 <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
