@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -14,6 +15,7 @@ export function Header() {
 
   const navLinks = [
     { href: '#services', label: 'Services' },
+    { href: '#pricing', label: 'Pricing' },
     { href: '#portfolio', label: 'Portfolio' },
     { href: '#ai-styler', label: 'AI Styler' },
     { href: '#about', label: 'About' },
@@ -26,16 +28,18 @@ export function Header() {
       setIsScrolled(window.scrollY > 10);
 
       let currentSection = '';
-      navLinks.forEach(link => {
-        const section = document.getElementById(link.href.substring(1));
+      const sections = navLinks.map(link => document.getElementById(link.href.substring(1))).filter(Boolean);
+      
+      const scrollPosition = window.scrollY + 100; // Offset for header height
+
+      for (const section of sections) {
         if (section) {
-            const sectionTop = section.offsetTop - 100; //-100 to offset for header height
-            const sectionBottom = sectionTop + section.offsetHeight;
-            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
-                currentSection = link.href;
-            }
+          if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
+            currentSection = `#${section.id}`;
+            break;
+          }
         }
-      });
+      }
       setActiveSection(currentSection);
     };
 
@@ -45,12 +49,12 @@ export function Header() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [navLinks]);
+  }, []);
 
 
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground'}`}>
+    <header className={cn(`sticky top-0 z-50 w-full transition-colors duration-300`, isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground')}>
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link href="/" className="mr-6 flex items-center gap-2">
           <Image src="https://placehold.co/120x50.png" alt="Headshot Pro Logo" width={120} height={50} data-ai-hint="logo" />
@@ -100,3 +104,5 @@ export function Header() {
     </header>
   );
 }
+
+    

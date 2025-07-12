@@ -1,10 +1,10 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle } from 'lucide-react';
+import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import AttireStyler from '@/components/attire-styler';
@@ -57,6 +57,89 @@ export default function Home() {
       excerpt: 'In today\'s digital world, your headshot is your first impression. Make it count.',
     },
   ];
+
+  const individualPackages = [
+    {
+      name: 'The Starter',
+      price: '$199',
+      description: 'Perfect for updating your LinkedIn profile or resume.',
+      features: [
+        '30-minute session',
+        '1 outfit',
+        'Online gallery',
+        '2 retouched photos'
+      ],
+      popular: false
+    },
+    {
+      name: 'The Professional',
+      price: '$349',
+      description: 'Ideal for entrepreneurs, executives, and personal branding.',
+      features: [
+        '60-minute session',
+        '2-3 outfits',
+        'Online gallery',
+        '5 retouched photos',
+        'Priority editing'
+      ],
+      popular: true
+    },
+    {
+      name: 'The Executive',
+      price: '$499',
+      description: 'The ultimate package for a comprehensive visual identity.',
+      features: [
+        '90-minute session',
+        'Unlimited outfits',
+        'Online gallery',
+        '10 retouched photos',
+        'Hair & makeup artist consultation',
+        'Expedited delivery'
+      ],
+      popular: false
+    }
+  ];
+
+  const conferencePackages = [
+    {
+      name: 'Half Day',
+      price: 'Starting at $1500',
+      description: 'Ideal for smaller events or adding value for your attendees.',
+      features: [
+        'Up to 4 hours of coverage',
+        'On-site studio setup',
+        'Professional photographer',
+        'Instant photo delivery for attendees',
+      ],
+      popular: false,
+    },
+    {
+      name: 'Full Day',
+      price: 'Starting at $2800',
+      description: 'Comprehensive coverage for a full-day conference or large team.',
+      features: [
+        'Up to 8 hours of coverage',
+        'On-site studio with backdrop options',
+        'Lead photographer + assistant',
+        'Branded online gallery',
+        'Group photo included',
+      ],
+      popular: true,
+    },
+    {
+      name: 'Multi-Day Event',
+      price: 'Custom Quote',
+      description: 'Tailored solutions for large-scale conferences and trade shows.',
+      features: [
+        'Multi-day coverage',
+        'Multiple photographers & stations',
+        'Custom branding & backdrop',
+        'Advanced lead capture integration',
+        'Dedicated event manager',
+      ],
+      popular: false,
+    },
+  ]
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -146,7 +229,79 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="services" className="w-full py-12 md:py-24 lg:py-32">
+        {/* Pricing Section */}
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Clear Pricing, No Surprises</h2>
+              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">Choose the package that's right for you.</p>
+            </div>
+
+            {/* Individual Packages */}
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Individual & Team Packages</h3>
+              <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
+                {individualPackages.map((pkg) => (
+                  <Card key={pkg.name} className={`flex flex-col ${pkg.popular ? 'border-primary border-2' : ''}`}>
+                    {pkg.popular && <div className="bg-primary text-primary-foreground text-center text-sm font-bold py-1 rounded-t-lg -mt-px">Most Popular</div>}
+                    <CardHeader className="flex-grow">
+                      <CardTitle>{pkg.name}</CardTitle>
+                      <p className="text-4xl font-bold">{pkg.price}</p>
+                      <CardDescription>{pkg.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-4">
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        {pkg.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-2">
+                            <Check className="h-4 w-4 text-green-500" strokeWidth={3} />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Button asChild className="mt-auto">
+                        <a href="#contact">{pkg.name === 'The Executive' ? 'Get In Touch' : 'Book Now'}</a>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Conference Packages */}
+            <div className="mt-24">
+              <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots</h3>
+              <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
+                {conferencePackages.map((pkg) => (
+                  <Card key={pkg.name} className={`flex flex-col ${pkg.popular ? 'border-primary border-2' : ''}`}>
+                    {pkg.popular && <div className="bg-primary text-primary-foreground text-center text-sm font-bold py-1 rounded-t-lg -mt-px">Best Value</div>}
+                    <CardHeader className="flex-grow">
+                      <CardTitle>{pkg.name}</CardTitle>
+                      <p className="text-4xl font-bold">{pkg.price}</p>
+                      <CardDescription>{pkg.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-4">
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        {pkg.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-2">
+                            <Check className="h-4 w-4 text-green-500" strokeWidth={3} />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Button asChild className="mt-auto">
+                        <a href="#contact">Request a Quote</a>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <section id="services" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -172,7 +327,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="portfolio" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="portfolio" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">See the Results</h2>
@@ -182,13 +337,13 @@ export default function Home() {
             </div>
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
               {portfolioImages.map((image, index) => (
-                <div key={index} className="overflow-hidden rounded-lg">
+                <div key={index} className="overflow-hidden rounded-lg aspect-square">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     data-ai-hint={image.hint}
                     width={400}
-                    height={600}
+                    height={400}
                     className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
                   />
                 </div>
@@ -197,7 +352,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="ai-styler" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="ai-styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">AI-Powered Attire Styler</h2>
@@ -211,7 +366,7 @@ export default function Home() {
            </div>
         </section>
 
-        <section id="about" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -234,7 +389,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="blog" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="blog" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">From Our Blog</h2>
@@ -244,7 +399,7 @@ export default function Home() {
             </div>
             <div className="mx-auto mt-8 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-none">
               {blogPosts.map((post, index) => (
-                <Card key={index} className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1">
+                <Card key={index} className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 bg-background">
                   <Image
                     src={post.image}
                     alt={post.title}
@@ -305,3 +460,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
