@@ -12,17 +12,17 @@ import AttireStyler from '@/components/attire-styler';
 export default function Home() {
   const services = [
     {
-      icon: <Briefcase className="h-10 w-10 text-secondary" />,
+      icon: <Briefcase className="h-10 w-10 text-primary" strokeWidth={1.5} />,
       title: 'Corporate Headshots',
       description: 'Professional and consistent headshots for your entire team that reflect your company\'s brand and values.',
     },
     {
-      icon: <Drama className="h-10 w-10 text-secondary" />,
+      icon: <Drama className="h-10 w-10 text-primary" strokeWidth={1.5} />,
       title: 'Actor Headshots',
       description: 'Capture your range and personality with headshots that stand out to casting directors and agents.',
     },
     {
-      icon: <User className="h-10 w-10 text-secondary" />,
+      icon: <User className="h-10 w-10 text-primary" strokeWidth={1.5} />,
       title: 'Personal Branding',
       description: 'Create a powerful visual identity with headshots tailored to your personal brand and professional goals.',
     },
@@ -70,18 +70,19 @@ export default function Home() {
             data-ai-hint="professional headshot"
             fill
             className="object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-black/50" />
           <div className="container relative px-4 md:px-6">
             <div className="flex flex-col items-center space-y-6">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Get a Professional Headshot That Opens Doors
+                Look Like The Professional You Are
               </h1>
               <p className="max-w-[700px] text-lg md:text-xl">
-                Stop losing opportunities with an amateur photo. We create stunning, authentic headshots that make you look like the expert you are.
+                In a world of first impressions, a professional headshot is your greatest asset. We help you get one you&apos;ll be proud of.
               </p>
               <a href="#contact">
-                <Button size="lg">Book Your Session</Button>
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Book Your Session</Button>
               </a>
             </div>
           </div>
@@ -91,19 +92,19 @@ export default function Home() {
         <section id="problem" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <h2 className="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">Is Your Headshot Holding You Back?</h2>
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Is Your Headshot Holding You Back?</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     A bad headshot makes you look unprofessional and can cost you clients and job opportunities. An great one builds trust before you even meet.
                 </p>
             </div>
             <div className="mx-auto mt-12 grid max-w-5xl items-center gap-8 sm:grid-cols-2 md:gap-12">
               <div className="flex flex-col items-center text-center p-6 border rounded-lg">
-                <XCircle className="h-12 w-12 text-destructive mb-4" />
+                <XCircle className="h-12 w-12 text-destructive mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold mb-2">The Wrong Impression</h3>
                 <p className="text-muted-foreground">An outdated or unprofessional photo can make you seem out of touch or untrustworthy, turning away potential clients and employers.</p>
               </div>
               <div className="flex flex-col items-center text-center p-6 border rounded-lg">
-                <CheckCircle className="h-12 w-12 text-green-500 mb-4" />
+                <CheckCircle className="h-12 w-12 text-green-500 mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold mb-2">The Right Connection</h3>
                 <p className="text-muted-foreground">A professional headshot conveys confidence and competence, helping you make a powerful first impression and attract the right opportunities.</p>
               </div>
@@ -115,24 +116,24 @@ export default function Home() {
         <section id="plan" className="w-full bg-accent py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <h2 className="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">Our Simple 3-Step Plan</h2>
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Simple 3-Step Plan</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     We make getting a professional headshot easy and stress-free.
                 </p>
             </div>
             <div className="mx-auto mt-12 grid max-w-5xl gap-8 sm:grid-cols-3 md:gap-12">
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold mb-4">1</div>
+                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-secondary text-secondary-foreground text-2xl font-bold mb-4">1</div>
                 <h3 className="text-xl font-bold">Schedule Your Session</h3>
                 <p className="text-muted-foreground">Book a time that works for you with our easy online scheduler.</p>
               </div>
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold mb-4">2</div>
+                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-secondary text-secondary-foreground text-2xl font-bold mb-4">2</div>
                 <h3 className="text-xl font-bold">Relax and Be Yourself</h3>
                 <p className="text-muted-foreground">Our expert photographers will guide you through a comfortable and fun photoshoot.</p>
               </div>
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold mb-4">3</div>
+                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-secondary text-secondary-foreground text-2xl font-bold mb-4">3</div>
                 <h3 className="text-xl font-bold">Receive Your Perfect Photos</h3>
                 <p className="text-muted-foreground">Get a gallery of professionally edited, high-resolution images you'll be proud to share.</p>
               </div>
@@ -149,7 +150,7 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">Our Services</h2>
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Services</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   We offer a range of specialized headshot services to meet your unique needs.
                 </p>
@@ -174,7 +175,7 @@ export default function Home() {
         <section id="portfolio" className="w-full bg-accent py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">See the Results</h2>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">See the Results</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
                 We've helped hundreds of professionals elevate their image.
               </p>
@@ -199,9 +200,9 @@ export default function Home() {
         <section id="ai-styler" className="w-full py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">AI-Powered Attire Styler</h2>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">AI-Powered Attire Styler</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                Get instant feedback on your look. Upload a photo or select a model and let our AI suggest the best attire for your profession.
+                Not sure what to wear? Enter your profession and let our AI suggest the perfect attire for your headshot.
               </p>
             </div>
             <div className="mt-8">
@@ -213,7 +214,7 @@ export default function Home() {
         <section id="about" className="w-full bg-accent py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter text-secondary md:text-4xl/tight">
+              <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
                 Your Guide to a Perfect Headshot
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -236,7 +237,7 @@ export default function Home() {
         <section id="blog" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-secondary sm:text-5xl">From Our Blog</h2>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">From Our Blog</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
                 Tips, tricks, and insights on making a great impression.
               </p>
@@ -255,7 +256,7 @@ export default function Home() {
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold">{post.title}</h3>
                     <p className="mt-2 text-muted-foreground">{post.excerpt}</p>
-                    <Button variant="link" className="mt-4 px-0">Read More &rarr;</Button>
+                    <Button variant="link" className="mt-4 px-0 text-primary hover:text-primary/80">Read More &rarr;</Button>
                   </CardContent>
                 </Card>
               ))}
@@ -266,7 +267,7 @@ export default function Home() {
         <section id="contact" className="w-full bg-accent py-12 md:py-24 lg:py-32">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter text-secondary md:text-4xl/tight">
+              <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
                 Ready to Elevate Your Image?
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -283,15 +284,15 @@ export default function Home() {
                 </form>
                 <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
                   <div className="flex items-center gap-4">
-                    <Mail className="h-6 w-6 text-secondary" />
+                    <Mail className="h-6 w-6 text-primary" strokeWidth={1.5}/>
                     <a href="mailto:hello@headshotpro.com" className="hover:underline">hello@headshotpro.com</a>
                   </div>
                   <div className="flex items-center gap-4">
-                    <Phone className="h-6 w-6 text-secondary" />
+                    <Phone className="h-6 w-6 text-primary" strokeWidth={1.5} />
                     <span>(555) 123-4567</span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <MapPin className="h-6 w-6 text-secondary" />
+                    <MapPin className="h-6 w-6 text-primary" strokeWidth={1.5} />
                     <span>123 Photo Lane, Image City, USA</span>
                   </div>
                 </div>

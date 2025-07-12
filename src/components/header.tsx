@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Camera, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,35 +30,35 @@ export function Header() {
   ];
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b bg-background/80 backdrop-blur-sm' : 'bg-background'}`}>
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground'}`}>
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link href="/" className="mr-6 flex items-center gap-2">
-          <Camera className="h-6 w-6 text-secondary" />
-          <span className="font-bold text-lg text-secondary">Headshot Pro</span>
+          <Image src="https://placehold.co/120x50.png" alt="Headshot Pro Logo" width={120} height={50} data-ai-hint="logo" />
         </Link>
-        <nav className="hidden w-full items-center gap-6 text-lg font-medium md:flex">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:w-auto">
+        
+        <div className="flex w-full items-center justify-end gap-4">
+          <nav className="hidden items-center gap-6 text-lg font-medium md:flex">
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="text-sm font-medium text-primary-foreground/80 transition-colors hover:text-primary-foreground">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
+              <Button variant="outline" size="icon" className="md:hidden bg-transparent border-primary-foreground/50 hover:bg-primary-foreground/10">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="bg-primary text-primary-foreground">
               <div className="grid gap-6 p-6">
-                <Link href="/" className="flex items-center gap-2">
-                  <Camera className="h-6 w-6 text-secondary" />
-                  <span className="font-bold text-lg text-secondary">Headshot Pro</span>
+                 <Link href="/" className="flex items-center gap-2">
+                    <Image src="https://placehold.co/120x50.png" alt="Headshot Pro Logo" width={120} height={50} data-ai-hint="logo" />
                 </Link>
                 {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="text-lg font-medium text-muted-foreground hover:text-foreground">
+                    <Link key={link.href} href={link.href} className="text-lg font-medium text-primary-foreground/80 hover:text-primary-foreground">
                       {link.label}
                     </Link>
                 ))}
@@ -65,7 +66,7 @@ export function Header() {
             </SheetContent>
           </Sheet>
           <a href="#contact" className="hidden md:block">
-            <Button>Book Now</Button>
+            <Button className="bg-accent text-accent-foreground hover:bg-accent/90">Book Now</Button>
           </a>
         </div>
       </div>
