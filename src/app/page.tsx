@@ -62,32 +62,26 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section id="home" className="w-full py-20 md:py-32 lg:py-40 bg-accent">
+        <section id="home" className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center text-center text-white">
+          <Image
+            src="https://placehold.co/1920x1080.png"
+            alt="Confident professional smiling in their headshot"
+            data-ai-hint="professional headshot"
+            fill
+            className="object-cover -z-10"
+          />
+          <div className="absolute inset-0 bg-black/50 -z-10" />
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-4">
-                  <h1 className="text-4xl font-bold tracking-tighter text-secondary sm:text-5xl xl:text-6xl/none">
-                    Get a Professional Headshot That Opens Doors
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Stop losing opportunities with an amateur photo. We create stunning, authentic headshots that make you look like the expert you are.
-                  </p>
-                </div>
-                <a href="#contact">
-                  <Button size="lg">Book Your Session</Button>
-                </a>
-              </div>
-              <div className="flex justify-center">
-                <Image
-                  src="https://placehold.co/600x600.png"
-                  width="600"
-                  height="600"
-                  alt="Confident professional smiling in their headshot"
-                  data-ai-hint="professional headshot"
-                  className="mx-auto aspect-square overflow-hidden rounded-xl object-cover"
-                />
-              </div>
+            <div className="flex flex-col items-center space-y-6">
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                Get a Professional Headshot That Opens Doors
+              </h1>
+              <p className="max-w-[700px] text-lg md:text-xl">
+                Stop losing opportunities with an amateur photo. We create stunning, authentic headshots that make you look like the expert you are.
+              </p>
+              <a href="#contact">
+                <Button size="lg">Book Your Session</Button>
+              </a>
             </div>
           </div>
         </section>
@@ -308,3 +302,4 @@ export default function Home() {
       <Footer />
     </div>
   );
+}
