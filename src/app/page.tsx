@@ -246,7 +246,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing Section */}
+        {/* Pricing Section - Individual */}
         <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -254,7 +254,6 @@ export default function Home() {
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">Choose the package that's right for you.</p>
             </div>
 
-            {/* Individual Packages */}
             <div className="mt-16">
               <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Individual & Team Packages</h3>
               <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
@@ -283,42 +282,45 @@ export default function Home() {
                 ))}
               </div>
             </div>
-
-            {/* Conference Packages */}
-            <div className="mt-24">
-              <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots</h3>
-              <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
-                {conferencePackages.map((pkg) => (
-                  <Card key={pkg.name} className={`flex flex-col ${pkg.popular ? 'border-primary border-2' : ''}`}>
-                    {pkg.popular && <div className="bg-primary text-primary-foreground text-center text-sm font-bold py-1 rounded-t-lg -mt-px">Best Value</div>}
-                    <CardHeader className="flex-grow">
-                      <CardTitle>{pkg.name}</CardTitle>
-                      <p className="text-4xl font-bold">{pkg.price}</p>
-                      <CardDescription>{pkg.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-col gap-4">
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        {pkg.features.map((feature) => (
-                          <li key={feature} className="flex items-center gap-2">
-                            <Check className="h-4 w-4 text-green-500" strokeWidth={3} />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto">
-                         Request a Quote
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
           </div>
+        </section>
+        
+        {/* Pricing Section - Conference */}
+        <section id="conference-pricing" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+            <div className="container px-4 md:px-6">
+                <div className="mt-12">
+                  <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots</h3>
+                  <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
+                    {conferencePackages.map((pkg) => (
+                      <Card key={pkg.name} className={`flex flex-col bg-background ${pkg.popular ? 'border-primary border-2' : ''}`}>
+                        {pkg.popular && <div className="bg-primary text-primary-foreground text-center text-sm font-bold py-1 rounded-t-lg -mt-px">Best Value</div>}
+                        <CardHeader className="flex-grow">
+                          <CardTitle>{pkg.name}</CardTitle>
+                          <p className="text-4xl font-bold">{pkg.price}</p>
+                          <CardDescription>{pkg.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex flex-col gap-4">
+                          <ul className="space-y-2 text-sm text-muted-foreground">
+                            {pkg.features.map((feature) => (
+                              <li key={feature} className="flex items-center gap-2">
+                                <Check className="h-4 w-4 text-green-500" strokeWidth={3} />
+                                <span>{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto">
+                             Request a Quote
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+            </div>
         </section>
 
 
-        <section id="services" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section id="services" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -344,7 +346,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="portfolio" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="portfolio" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">See the Results</h2>
@@ -354,14 +356,14 @@ export default function Home() {
             </div>
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
               {portfolioImages.map((image, index) => (
-                <div key={index} className="overflow-hidden rounded-lg aspect-w-1 aspect-h-1">
+                <div key={index} className="overflow-hidden rounded-lg">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     data-ai-hint={image.hint}
                     width={400}
-                    height={400}
-                    className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+                    height={600}
+                    className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105 aspect-[2/3]"
                   />
                 </div>
               ))}
@@ -369,7 +371,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="ai-styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="ai-styler" className="w-full py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">AI-Powered Attire Styler</h2>
@@ -383,7 +385,7 @@ export default function Home() {
            </div>
         </section>
 
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -406,7 +408,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="blog" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="blog" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">From Our Blog</h2>

@@ -30,12 +30,22 @@ export function Header() {
       let currentSection = '';
       const sections = navLinks.map(link => document.getElementById(link.href.substring(1))).filter(Boolean);
       
+      const conferenceSection = document.getElementById('conference-pricing');
+      if (conferenceSection) {
+        sections.push(conferenceSection);
+      }
+
       const scrollPosition = window.scrollY + 100; // Offset for header height
 
       for (const section of sections) {
         if (section) {
           if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
-            currentSection = `#${section.id}`;
+            
+            if(section.id === 'conference-pricing'){
+                currentSection = '#pricing';
+            } else {
+                currentSection = `#${section.id}`;
+            }
             break;
           }
         }
