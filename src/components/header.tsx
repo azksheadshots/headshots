@@ -17,7 +17,7 @@ export function Header() {
     { href: '#services', label: 'Services' },
     { href: '#pricing', label: 'Pricing' },
     { href: '#portfolio', label: 'Portfolio' },
-    { href: '#ai-styler', label: 'AI Styler' },
+    { href: '#clothing-styler', label: 'Clothing Styler' },
     { href: '#about', label: 'About' },
     { href: '#blog', label: 'Blog' },
     { href: '#contact', label: 'Contact' },
