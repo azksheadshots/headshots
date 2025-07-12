@@ -69,10 +69,10 @@ export default function Home() {
             alt="Confident professional smiling in their headshot"
             data-ai-hint="professional headshot"
             fill
-            className="object-cover -z-10"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/50 -z-10" />
-          <div className="container px-4 md:px-6">
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="container relative px-4 md:px-6">
             <div className="flex flex-col items-center space-y-6">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                 Get a Professional Headshot That Opens Doors
