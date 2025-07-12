@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react';
 import Image from 'next/image';
@@ -489,7 +490,7 @@ export default function Home() {
                 <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
                   <div className="flex items-center gap-4">
                     <Mail className="h-6 w-6 text-primary" strokeWidth={1.5}/>
-                    <a href="mailto:hello@ksheadshots.com" className="hover:underline">hello@ksheadshots.com</a>
+                    <a href="mailto:info@ksheadshots.com" className="hover:underline">info@ksheadshots.com</a>
                   </div>
                   <div className="flex items-center gap-4">
                     <Phone className="h-6 w-6 text-primary" strokeWidth={1.5} />

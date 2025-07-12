@@ -1,3 +1,4 @@
+
 'use server';
 
 import { attireSuggestion, AttireSuggestionInput } from '@/ai/flows/attire-suggestion';
@@ -31,7 +32,7 @@ export async function sendEmailAction(formData: FormData): Promise<{ success: bo
     try {
         await resend.emails.send({
             from: 'onboarding@resend.dev', // This should be a configured domain in Resend
-            to: 'hello@ksheadshots.com', // Your receiving email
+            to: 'info@ksheadshots.com', // Your receiving email
             subject: `New Headshot Inquiry from ${name}`,
             html: `
                 <p>You have a new contact form submission:</p>
