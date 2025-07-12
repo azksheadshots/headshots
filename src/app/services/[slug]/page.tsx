@@ -202,16 +202,38 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="py-12 md:py-16 bg-muted">
             <div className="container px-4 md:px-6">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl text-center mb-12">
-                    Our Process
+                    Our Simple Process
                 </h2>
-                <div className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="absolute top-1/2 left-0 w-full h-px bg-border -translate-y-4 hidden sm:block" />
+                <div className="relative max-w-5xl mx-auto">
+                    {/* The timeline line */}
+                    <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-border hidden sm:block"></div>
+
                     {service.process.map((step, index) => (
-                        <div key={index} className="relative flex flex-col items-center text-center">
-                            <div className="absolute top-0 left-1/2 w-px h-full bg-border -translate-x-1/2 -translate-y-full sm:hidden" />
-                            <div className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold mb-4">{index + 1}</div>
-                            <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                            <p className="text-muted-foreground">{step.description}</p>
+                        <div key={index} className="relative mb-12">
+                            <div className="flex items-center sm:grid sm:grid-cols-[1fr_auto_1fr] gap-x-8">
+                                {/* Step number circle */}
+                                <div className="hidden sm:flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold text-xl z-10 order-2">
+                                    {index + 1}
+                                </div>
+                                
+                                {/* Mobile-only Step number */}
+                                <div className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg z-10 flex-shrink-0 mr-4">
+                                    {index + 1}
+                                </div>
+
+                                {/* Content Card */}
+                                <div className={`order-1 sm:order-${index % 2 === 0 ? 1 : 3}`}>
+                                    <Card className="bg-background shadow-md">
+                                        <CardContent className="p-6">
+                                            <h3 className="text-xl font-bold mb-2 text-primary">{step.title}</h3>
+                                            <p className="text-muted-foreground">{step.description}</p>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                
+                                {/* Spacer for alignment on desktop */}
+                                <div className={`hidden sm:block order-${index % 2 === 0 ? 3 : 1}`}></div>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -273,5 +295,3 @@ export async function generateStaticParams() {
       slug: service.slug,
     }))
 }
-
-    
