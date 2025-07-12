@@ -357,7 +357,7 @@ export default function Home() {
             <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:max-w-none mt-12">
               {services.map((service) => (
                 <Link key={service.slug} href={`/services/${service.slug}`} className="group">
-                    <Card className="bg-background transition-all h-full group-hover:shadow-lg group-hover:-translate-y-1">
+                    <Card className="bg-background border-secondary transition-all h-full group-hover:shadow-lg group-hover:-translate-y-1">
                       <CardHeader className="items-center gap-4">
                         {service.icon}
                         <CardTitle className="text-2xl">{service.title}</CardTitle>
