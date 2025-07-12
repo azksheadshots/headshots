@@ -30,10 +30,10 @@ export default function Home() {
 
   const portfolioImages = [
     { src: 'https://placehold.co/400x600.png', alt: 'Corporate headshot of a woman', hint: 'professional woman' },
-    { src: 'https://placehold.co/800x600.png', alt: 'Actor headshot, smiling man', hint: 'smiling man' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Actor headshot, smiling man', hint: 'smiling man' },
     { src: 'https://placehold.co/400x600.png', alt: 'Personal branding photo in an urban environment', hint: 'urban portrait' },
     { src: 'https://placehold.co/400x600.png', alt: 'Creative professional headshot', hint: 'creative professional' },
-    { src: 'https://placehold.co/800x600.png', alt: 'Corporate team photo', hint: 'business team' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Corporate team photo', hint: 'business team' },
     { src: 'https://placehold.co/400x600.png', alt: 'Headshot of a man in a suit', hint: 'man suit' },
   ];
 
@@ -180,14 +180,14 @@ export default function Home() {
                 We've helped hundreds of professionals elevate their image.
               </p>
             </div>
-            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3">
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
               {portfolioImages.map((image, index) => (
-                <div key={index} className={`overflow-hidden rounded-lg ${index === 1 || index === 4 ? 'col-span-2' : ''}`}>
+                <div key={index} className="overflow-hidden rounded-lg">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     data-ai-hint={image.hint}
-                    width={index === 1 || index === 4 ? 800 : 400}
+                    width={400}
                     height={600}
                     className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
                   />

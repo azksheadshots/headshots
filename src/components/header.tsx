@@ -6,19 +6,11 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const [activeSection, setActiveSection] = useState('');
 
   const navLinks = [
     { href: '#services', label: 'Services' },
@@ -28,6 +20,34 @@ export function Header() {
     { href: '#blog', label: 'Blog' },
     { href: '#contact', label: 'Contact' },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+
+      let currentSection = '';
+      navLinks.forEach(link => {
+        const section = document.getElementById(link.href.substring(1));
+        if (section) {
+            const sectionTop = section.offsetTop - 100; //-100 to offset for header height
+            const sectionBottom = sectionTop + section.offsetHeight;
+            if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                currentSection = link.href;
+            }
+        }
+      });
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); 
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [navLinks]);
+
+
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground'}`}>
@@ -39,7 +59,14 @@ export function Header() {
         <div className="flex w-full items-center justify-end gap-4">
           <nav className="hidden items-center gap-6 text-lg font-medium md:flex">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="text-sm font-medium text-primary-foreground/80 transition-colors hover:text-primary-foreground">
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className={cn(
+                  "text-sm font-bold text-primary-foreground/80 transition-colors hover:text-accent",
+                  activeSection === link.href && "text-accent border-b-2 border-accent"
+                )}
+              >
                 {link.label}
               </Link>
             ))}
@@ -58,7 +85,7 @@ export function Header() {
                     <Image src="https://placehold.co/120x50.png" alt="Headshot Pro Logo" width={120} height={50} data-ai-hint="logo" />
                 </Link>
                 {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="text-lg font-medium text-primary-foreground/80 hover:text-primary-foreground">
+                    <Link key={link.href} href={link.href} className="text-lg font-medium text-primary-foreground/80 hover:text-accent">
                       {link.label}
                     </Link>
                 ))}
