@@ -1,5 +1,6 @@
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -39,18 +40,21 @@ export default function Home() {
 
   const blogPosts = [
     {
+      slug: '5-tips-for-a-perfect-headshot',
       image: 'https://placehold.co/600x400.png',
       hint: 'camera lens',
       title: '5 Tips for a Perfect Headshot',
       excerpt: 'Learn how to prepare for your session to get the best possible results.From wardrobe to mindset, we cover it all.',
     },
     {
+      slug: 'what-to-wear-corporate-edition',
       image: 'https://placehold.co/600x400.png',
       hint: 'professional attire',
       title: 'What to Wear: Corporate Edition',
       excerpt: 'Dressing for success is key. Discover the best colors and styles for your corporate headshot.',
     },
     {
+      slug: 'the-power-of-a-professional-image',
       image: 'https://placehold.co/600x400.png',
       hint: 'city skyline',
       title: 'The Power of a Professional Image',
@@ -337,7 +341,7 @@ export default function Home() {
             </div>
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
               {portfolioImages.map((image, index) => (
-                <div key={index} className="overflow-hidden rounded-lg aspect-square">
+                <div key={index} className="overflow-hidden rounded-lg">
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -398,20 +402,24 @@ export default function Home() {
               </p>
             </div>
             <div className="mx-auto mt-8 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-none">
-              {blogPosts.map((post, index) => (
-                <Card key={index} className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 bg-background">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    data-ai-hint={post.hint}
-                    width={600}
-                    height={400}
-                    className="aspect-video w-full object-cover"
-                  />
+              {blogPosts.map((post) => (
+                <Card key={post.slug} className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 bg-background">
+                  <Link href={`/blog/${post.slug}`}>
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      data-ai-hint={post.hint}
+                      width={600}
+                      height={400}
+                      className="aspect-video w-full object-cover"
+                    />
+                  </Link>
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold">{post.title}</h3>
                     <p className="mt-2 text-muted-foreground">{post.excerpt}</p>
-                    <Button variant="link" className="mt-4 px-0 text-primary hover:text-primary/80">Read More &rarr;</Button>
+                    <Button variant="link" asChild className="mt-4 px-0 text-primary hover:text-primary/80">
+                      <Link href={`/blog/${post.slug}`}>Read More &rarr;</Link>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
