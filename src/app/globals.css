@@ -9,24 +9,24 @@ html {
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 96% 26%;
+    --foreground: 240 96% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 240 96% 26%;
+    --card-foreground: 240 96% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 96% 26%;
-    --primary: 240 96% 26%;
+    --popover-foreground: 240 96% 10%;
+    --primary: 240 95% 26%; /* #030380 */
     --primary-foreground: 0 0% 98%;
-    --secondary: 160 56% 90%;
+    --secondary: 151 51% 79%; /* A lighter shade of Aqua for secondary elements */
     --secondary-foreground: 240 96% 15%;
-    --muted: 240 20% 96%;
-    --muted-foreground: 240 10% 45%;
-    --accent: 160 56% 67%;
+    --muted: 0 0% 96.1%; /* Light Gray */
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 158 56% 74%; /* #7ED9BC */
     --accent-foreground: 240 96% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 20% 90%;
-    --input: 240 20% 90%;
-    --ring: 240 96% 26%;
+    --border: 240 5.9% 90%;
+    --input: 0 0% 100%;
+    --ring: 240 95% 26%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -49,19 +49,19 @@ html {
     --card-foreground: 0 0% 98%;
     --popover: 240 96% 5%;
     --popover-foreground: 0 0% 98%;
-    --primary: 240 96% 26%;
+    --primary: 240 95% 26%; /* #030380 */
     --primary-foreground: 0 0% 98%;
-    --secondary: 160 56% 67%;
+    --secondary: 158 56% 74%;
     --secondary-foreground: 240 96% 15%;
-    --muted: 0 0% 14.9%;
+    --muted: 0 0% 14.9%; /* Darker Gray */
     --muted-foreground: 0 0% 63.9%;
-    --accent: 160 56% 57%;
+    --accent: 158 56% 74%; /* #7ED9BC */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 240 96% 26%;
+    --input: 0 0% 100%;
+    --ring: 240 95% 26%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;

@@ -113,7 +113,7 @@ export default function Home() {
         </section>
 
         {/* The Plan Section */}
-        <section id="plan" className="w-full bg-accent py-12 md:py-24 lg:py-32">
+        <section id="plan" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Simple 3-Step Plan</h2>
@@ -172,7 +172,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="portfolio" className="w-full bg-accent py-12 md:py-24 lg:py-32">
+        <section id="portfolio" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">See the Results</h2>
@@ -211,7 +211,7 @@ export default function Home() {
            </div>
         </section>
 
-        <section id="about" className="w-full bg-accent py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -264,7 +264,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full bg-accent py-12 md:py-24 lg:py-32">
+        <section id="contact" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">

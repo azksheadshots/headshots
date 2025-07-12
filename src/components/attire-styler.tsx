@@ -83,7 +83,7 @@ export default function AttireStyler() {
 
           <div className="space-y-4">
             <Label>Your Suggestions</Label>
-            <div className="h-full min-h-[200px] bg-accent rounded-lg p-4 space-y-3 overflow-y-auto">
+            <div className="h-full min-h-[200px] bg-muted rounded-lg p-4 space-y-3 overflow-y-auto">
                 {isLoading && <div className="flex items-center justify-center h-full"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>}
                 {error && 
                     <Alert variant="destructive">
