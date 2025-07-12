@@ -290,7 +290,7 @@ export default function Home() {
                       <ul className="space-y-2 text-sm text-muted-foreground">
                         {pkg.features.map((feature) => (
                           <li key={feature} className="flex items-center gap-2">
-                            <Check className="h-4 w-4 text-green-500" strokeWidth={3} />
+                            <Check className="h-4 w-4 text-green-500" strokeWidth={1.5} />
                             <span>{feature}</span>
                           </li>
                         ))}
@@ -324,7 +324,7 @@ export default function Home() {
                           <ul className="space-y-2 text-sm text-muted-foreground">
                             {pkg.features.map((feature) => (
                               <li key={feature} className="flex items-center gap-2">
-                                <Check className="h-4 w-4 text-green-500" strokeWidth={3} />
+                                <Check className="h-4 w-4 text-green-500" strokeWidth={1.5} />
                                 <span>{feature}</span>
                               </li>
                             ))}
