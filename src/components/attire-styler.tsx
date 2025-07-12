@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -61,11 +62,11 @@ export default function AttireStyler() {
 
   return (
     <Card className="w-full max-w-2xl mx-auto bg-background">
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardHeader>
-          <CardTitle className="text-center text-2xl">Get Your AI Attire Suggestions</CardTitle>
-        </CardHeader>
-        <CardContent className="grid gap-8">
+      <CardHeader>
+        <CardTitle className="text-center text-2xl">Get Your AI Attire Suggestions</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-8">
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="profession">Enter Your Profession</Label>
@@ -80,8 +81,9 @@ export default function AttireStyler() {
               Get Suggestions
             </Button>
           </div>
+        </form>
 
-          <div className="space-y-4">
+        <div className="space-y-4 mt-8">
             <Label>Your Suggestions</Label>
             <div className="h-full min-h-[200px] bg-muted rounded-lg p-4 space-y-3 overflow-y-auto">
                 {isLoading && <div className="flex items-center justify-center h-full"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>}
@@ -105,8 +107,7 @@ export default function AttireStyler() {
                 {!isLoading && !error && suggestions.length === 0 && <p className="text-muted-foreground text-center pt-16">Your AI suggestions will appear here.</p>}
             </div>
           </div>
-        </CardContent>
-      </form>
+      </CardContent>
     </Card>
   );
 }
