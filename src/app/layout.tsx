@@ -1,9 +1,10 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Headshot Pro',
+  title: 'KS Headshots',
   description: 'AI-powered headshot photography services',
 };
 

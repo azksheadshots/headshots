@@ -1,16 +1,29 @@
 
+'use client'
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check } from 'lucide-react';
+import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import AttireStyler from '@/components/attire-styler';
 
 export default function Home() {
+  const [selectedPackage, setSelectedPackage] = useState('');
+
+  const handlePackageSelect = (packageName: string) => {
+    setSelectedPackage(packageName);
+    const contactForm = document.getElementById('contact');
+    if(contactForm) {
+      contactForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+
   const services = [
     {
       icon: <Briefcase className="h-10 w-10 text-primary" strokeWidth={1.5} />,
@@ -168,9 +181,9 @@ export default function Home() {
               <p className="max-w-[700px] text-lg md:text-xl">
                 In a world of first impressions, a professional headshot is your greatest asset. We help you get one you&apos;ll be proud of.
               </p>
-              <a href="#contact">
-                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Book Your Session</Button>
-              </a>
+              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                <a href="#contact">Book Your Session</a>
+              </Button>
             </div>
           </div>
         </section>
@@ -262,8 +275,8 @@ export default function Home() {
                           </li>
                         ))}
                       </ul>
-                      <Button asChild className="mt-auto">
-                        <a href="#contact">{pkg.name === 'The Executive' ? 'Get In Touch' : 'Book Now'}</a>
+                      <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto">
+                        {pkg.name === 'The Executive' ? 'Get In Touch' : 'Book Now'}
                       </Button>
                     </CardContent>
                   </Card>
@@ -292,8 +305,8 @@ export default function Home() {
                           </li>
                         ))}
                       </ul>
-                      <Button asChild className="mt-auto">
-                        <a href="#contact">Request a Quote</a>
+                      <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto">
+                         Request a Quote
                       </Button>
                     </CardContent>
                   </Card>
@@ -341,7 +354,7 @@ export default function Home() {
             </div>
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
               {portfolioImages.map((image, index) => (
-                <div key={index} className="overflow-hidden rounded-lg">
+                <div key={index} className="overflow-hidden rounded-lg aspect-w-1 aspect-h-1">
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -385,7 +398,7 @@ export default function Home() {
                 src="https://placehold.co/550x550.png"
                 width="550"
                 height="550"
-                alt="Lead photographer at Headshot Pro"
+                alt="Lead photographer at KS Headshots"
                 data-ai-hint="photographer portrait"
                 className="mx-auto aspect-square overflow-hidden rounded-full object-cover"
               />
@@ -440,23 +453,28 @@ export default function Home() {
             <div className="mx-auto w-full max-w-screen-lg">
               <div className="grid lg:grid-cols-2 lg:gap-12">
                 <form className="flex flex-col gap-4 text-left">
-                  <Input placeholder="Name" type="text" />
-                  <Input placeholder="Email" type="email" />
-                  <Textarea placeholder="Message" rows={5} />
+                  <Input name="name" placeholder="Name" type="text" />
+                  <Input name="email" placeholder="Email" type="email" />
+                  <Input name="package" type="hidden" value={selectedPackage} />
+                  <Textarea name="message" placeholder={`I'm interested in the ${selectedPackage || '...'} package`} rows={5} />
                   <Button type="submit">Send Message</Button>
                 </form>
                 <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
                   <div className="flex items-center gap-4">
                     <Mail className="h-6 w-6 text-primary" strokeWidth={1.5}/>
-                    <a href="mailto:hello@headshotpro.com" className="hover:underline">hello@headshotpro.com</a>
+                    <a href="mailto:hello@ksheadshots.com" className="hover:underline">hello@ksheadshots.com</a>
                   </div>
                   <div className="flex items-center gap-4">
                     <Phone className="h-6 w-6 text-primary" strokeWidth={1.5} />
-                    <span>(555) 123-4567</span>
+                    <span>(602) 317-2239</span>
                   </div>
                   <div className="flex items-center gap-4">
                     <MapPin className="h-6 w-6 text-primary" strokeWidth={1.5} />
-                    <span>123 Photo Lane, Image City, USA</span>
+                    <span>Buckeye, AZ</span>
+                  </div>
+                   <div className="flex items-center gap-4">
+                    <Clock className="h-6 w-6 text-primary" strokeWidth={1.5} />
+                    <span>By Appointment Only</span>
                   </div>
                 </div>
               </div>
@@ -468,5 +486,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
