@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock } from 'lucide-react';
+import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Shirt } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import AttireStyler from '@/components/attire-styler';
@@ -223,6 +223,21 @@ export default function Home() {
                 <a href="#contact">Book Your Session</a>
               </Button>
             </div>
+          </div>
+        </section>
+
+        {/* Clothing Styler CTA Section */}
+        <section id="clothing-styler-cta" className="w-full py-12 bg-secondary">
+          <div className="container px-4 md:px-6">
+            <a href="#clothing-styler" className="group block">
+              <div className="flex flex-col items-center justify-center gap-4 text-center text-secondary-foreground md:flex-row md:gap-8">
+                <Shirt className="h-10 w-10 transition-transform duration-300 group-hover:scale-110" />
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-bold tracking-tight">Don&apos;t know what to wear for your headshot?</h3>
+                  <p className="text-lg font-medium text-secondary-foreground/80 underline underline-offset-4 group-hover:text-secondary-foreground">Try our free KS Powered Clothing Styler</p>
+                </div>
+              </div>
+            </a>
           </div>
         </section>
 
