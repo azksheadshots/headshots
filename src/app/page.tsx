@@ -204,7 +204,7 @@ export default function Home() {
               <p className="max-w-[700px] text-lg md:text-xl">
                 In a world of first impressions, a professional headshot is your greatest asset. We help you get one you&apos;ll be proud of.
               </p>
-              <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <Button asChild size="lg" className="bg-primary-gradient text-primary-foreground">
                 <a href="#contact">Book Your Session</a>
               </Button>
             </div>
@@ -263,7 +263,7 @@ export default function Home() {
             </div>
             <div className="text-center mt-12">
                <a href="#contact">
-                    <Button size="lg">Get Started</Button>
+                    <Button size="lg" className="bg-primary-gradient text-primary-foreground">Get Started</Button>
                 </a>
             </div>
           </div>
@@ -467,7 +467,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="contact" className="w-full bg-background py-12 md:py-24 lg:py-32">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -484,7 +484,7 @@ export default function Home() {
                   <Input name="email" placeholder="Email" type="email" required />
                   <input name="package" type="hidden" value={selectedPackage} />
                   <Textarea name="message" placeholder={`I'm interested in the ${selectedPackage || '...'} package`} rows={5} required />
-                  <Button type="submit">Send Message</Button>
+                  <Button type="submit" className="bg-primary-gradient text-primary-foreground">Send Message</Button>
                 </form>
                 <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
                   <div className="flex items-center gap-4">

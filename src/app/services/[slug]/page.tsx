@@ -177,7 +177,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                     Let's create images that make a powerful first impression and help you achieve your goals.
                 </p>
                 <div className="mt-8">
-                    <Button asChild size="lg">
+                    <Button asChild size="lg" className="bg-primary-gradient text-primary-foreground">
                         <Link href="/#contact">
                             Get in Touch
                         </Link>
