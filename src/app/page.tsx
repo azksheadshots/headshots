@@ -29,16 +29,19 @@ export default function Home() {
 
   const services = [
     {
+      slug: 'corporate-headshots',
       icon: <Briefcase className="h-10 w-10 text-primary" strokeWidth={1.5} />,
       title: 'Corporate Headshots',
       description: 'Professional and consistent headshots for your entire team that reflect your company\'s brand and values.',
     },
     {
+      slug: 'actor-headshots',
       icon: <Drama className="h-10 w-10 text-primary" strokeWidth={1.5} />,
       title: 'Actor Headshots',
       description: 'Capture your range and personality with headshots that stand out to casting directors and agents.',
     },
     {
+      slug: 'personal-branding',
       icon: <User className="h-10 w-10 text-primary" strokeWidth={1.5} />,
       title: 'Personal Branding',
       description: 'Create a powerful visual identity with headshots tailored to your personal brand and professional goals.',
@@ -352,16 +355,18 @@ export default function Home() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:max-w-none mt-12">
-              {services.map((service, index) => (
-                <Card key={index} className="bg-background transition-all hover:shadow-lg hover:-translate-y-1">
-                  <CardHeader className="items-center gap-4">
-                    {service.icon}
-                    <CardTitle className="text-2xl">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <p>{service.description}</p>
-                  </CardContent>
-                </Card>
+              {services.map((service) => (
+                <Link key={service.slug} href={`/services/${service.slug}`} className="group">
+                    <Card className="bg-background transition-all h-full group-hover:shadow-lg group-hover:-translate-y-1">
+                      <CardHeader className="items-center gap-4">
+                        {service.icon}
+                        <CardTitle className="text-2xl">{service.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <p>{service.description}</p>
+                      </CardContent>
+                    </Card>
+                </Link>
               ))}
             </div>
           </div>

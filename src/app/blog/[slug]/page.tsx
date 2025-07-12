@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/breadcrumbs';
 
 // This is temporary data. In a real application, you would fetch this from a CMS.
 const blogPosts = [
@@ -60,8 +61,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Header />
-      <main className="flex-1 py-12 md:py-24 lg:py-32">
+      <main className="flex-1 py-12 md:py-16">
         <div className="container px-4 md:px-6">
+            <div className="mb-8">
+                <Breadcrumbs />
+            </div>
           <article className="prose prose-lg mx-auto max-w-4xl">
             <div className="space-y-4 not-prose">
               <h1 className="text-4xl font-bold tracking-tighter text-primary sm:text-5xl">{post.title}</h1>
@@ -90,5 +94,3 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
-
-    
