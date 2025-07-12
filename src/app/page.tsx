@@ -14,12 +14,17 @@ import AttireStyler from '@/components/attire-styler';
 import { sendEmailAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 
+type SelectedPackage = {
+  name: string;
+  type: 'Individual' | 'Conference' | '';
+};
+
 export default function Home() {
-  const [selectedPackage, setSelectedPackage] = useState('');
+  const [selectedPackage, setSelectedPackage] = useState<SelectedPackage>({ name: '', type: '' });
   const { toast } = useToast();
 
-  const handlePackageSelect = (packageName: string) => {
-    setSelectedPackage(packageName);
+  const handlePackageSelect = (packageName: string, packageType: 'Individual' | 'Conference') => {
+    setSelectedPackage({ name: packageName, type: packageType });
     const contactForm = document.getElementById('contact');
     if(contactForm) {
       contactForm.scrollIntoView({ behavior: 'smooth' });
@@ -181,6 +186,15 @@ export default function Home() {
       });
     }
   };
+  
+  const contactFormPlaceholder = selectedPackage.name
+    ? `I'm interested in the ${selectedPackage.type} Package: ${selectedPackage.name}.`
+    : `I'm interested in learning more about your services.`;
+    
+  const contactFormPackageValue = selectedPackage.name
+    ? `${selectedPackage.type} Package: ${selectedPackage.name}`
+    : '';
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -298,7 +312,7 @@ export default function Home() {
                           </li>
                         ))}
                       </ul>
-                      <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto bg-primary-gradient text-primary-foreground">
+                      <Button onClick={() => handlePackageSelect(pkg.name, 'Individual')} className="mt-auto bg-primary-gradient text-primary-foreground">
                         {pkg.name === 'The Executive' ? 'Get In Touch' : 'Book Now'}
                       </Button>
                     </CardContent>
@@ -332,7 +346,7 @@ export default function Home() {
                               </li>
                             ))}
                           </ul>
-                          <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto bg-primary-gradient text-primary-foreground">
+                          <Button onClick={() => handlePackageSelect(pkg.name, 'Conference')} className="mt-auto bg-primary-gradient text-primary-foreground">
                              Request a Quote
                           </Button>
                         </CardContent>
@@ -483,8 +497,8 @@ export default function Home() {
                 <form id="contact-form" action={handleFormSubmit} className="flex flex-col gap-4 text-left">
                   <Input name="name" placeholder="Name" type="text" required />
                   <Input name="email" placeholder="Email" type="email" required />
-                  <input name="package" type="hidden" value={selectedPackage} />
-                  <Textarea name="message" placeholder={`I'm interested in the ${selectedPackage || '...'} package`} rows={5} required />
+                  <input name="package" type="hidden" value={contactFormPackageValue} />
+                  <Textarea name="message" placeholder={contactFormPlaceholder} rows={5} required />
                   <Button type="submit" className="bg-primary-gradient text-primary-foreground">Send Message</Button>
                 </form>
                 <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
