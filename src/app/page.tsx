@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,7 +42,7 @@ export default function Home() {
       image: 'https://placehold.co/600x400.png',
       hint: 'camera lens',
       title: '5 Tips for a Perfect Headshot',
-      excerpt: 'Learn how to prepare for your session to get the best possible results. From wardrobe to mindset, we cover it all.',
+      excerpt: 'Learn how to prepare for your session to get the best possible results.From wardrobe to mindset, we cover it all.',
     },
     {
       image: 'https://placehold.co/600x400.png',
