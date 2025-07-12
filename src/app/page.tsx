@@ -1,4 +1,3 @@
-
 'use client'
 import { useState } from 'react';
 import Image from 'next/image';
@@ -298,7 +297,7 @@ export default function Home() {
                           </li>
                         ))}
                       </ul>
-                      <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto">
+                      <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto bg-primary-gradient text-primary-foreground">
                         {pkg.name === 'The Executive' ? 'Get In Touch' : 'Book Now'}
                       </Button>
                     </CardContent>
@@ -332,7 +331,7 @@ export default function Home() {
                               </li>
                             ))}
                           </ul>
-                          <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto">
+                          <Button onClick={() => handlePackageSelect(pkg.name)} className="mt-auto bg-primary-gradient text-primary-foreground">
                              Request a Quote
                           </Button>
                         </CardContent>
