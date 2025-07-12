@@ -21,9 +21,18 @@ const Breadcrumbs = () => {
           </Link>
         </li>
         {pathSegments.map((segment, index) => {
-          const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
+          let href = `/${pathSegments.slice(0, index + 1).join('/')}`;
           const isLast = index === pathSegments.length - 1;
           const label = segment.replace(/-/g, ' ');
+          
+          // Special case for the "services" path to link to the homepage section
+          if (segment === 'services') {
+              href = '/#services';
+          }
+           // Special case for the "blog" path to link to the homepage section
+           if (segment === 'blog' && !isLast) {
+            href = '/#blog';
+           }
 
           return (
             <li key={href} className="flex items-center space-x-2">
