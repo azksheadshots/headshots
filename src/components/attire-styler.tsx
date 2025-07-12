@@ -63,7 +63,7 @@ export default function AttireStyler() {
   return (
     <Card className="w-full max-w-2xl mx-auto bg-background">
       <CardHeader>
-        <CardTitle className="text-center text-2xl">Get Your AI Attire Suggestions</CardTitle>
+        <CardTitle className="text-center text-2xl">Get your clothing suggestions for headshots</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-8">
