@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/breadcrumbs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 const servicesData = [
   {
@@ -25,6 +25,24 @@ const servicesData = [
       'Expert posing guidance for a confident look',
       'Fast turnaround for all images',
       'Group and team photos available',
+    ],
+    process: [
+      {
+        title: 'Consultation & Planning',
+        description: 'We start with a call to understand your brand, style requirements, and logistical needs for the team photoshoot.',
+      },
+      {
+        title: 'On-Site Setup',
+        description: 'Our team arrives at your location with a full professional studio setup, ensuring minimal disruption to your workflow.',
+      },
+      {
+        title: 'Guided Photoshoot',
+        description: 'We photograph each team member efficiently, providing expert coaching to ensure everyone looks confident and approachable.',
+      },
+      {
+        title: 'Image Delivery',
+        description: 'You receive a private online gallery of professionally edited, high-resolution images, ready for use across all platforms.',
+      },
     ],
     gallery: [
       { src: 'https://placehold.co/600x400.png', hint: 'corporate woman portrait' },
@@ -49,6 +67,24 @@ const servicesData = [
       'Shots that highlight your personality and range',
       'Industry-standard formatting and retouching',
     ],
+    process: [
+        {
+          title: 'Character Discovery',
+          description: 'We discuss your casting type, target roles, and overall brand to plan the looks for your session.',
+        },
+        {
+          title: 'Dynamic Photoshoot',
+          description: 'This is a creative and collaborative session where we explore various expressions, emotions, and characters.',
+        },
+        {
+          title: 'Image Selection',
+          description: 'Together, we review the images to select the strongest shots that best represent your range as an actor.',
+        },
+        {
+          title: 'Retouching & Delivery',
+          description: 'You get professionally retouched, industry-standard headshots that make a powerful impression on casting directors.',
+        },
+      ],
     gallery: [
       { src: 'https://placehold.co/600x400.png', hint: 'dramatic actor portrait' },
       { src: 'https://placehold.co/600x400.png', hint: 'smiling actress' },
@@ -72,6 +108,24 @@ const servicesData = [
       'A library of on-brand images for all your marketing needs',
       'Guidance on using your images effectively online',
     ],
+    process: [
+        {
+          title: 'Brand Immersion',
+          description: 'We dive deep into your brand, values, and audience to create a visual strategy that tells your unique story.',
+        },
+        {
+          title: 'Multi-Location Shoot',
+          description: 'We capture a diverse range of images—from professional portraits to lifestyle shots—in environments that reflect your brand.',
+        },
+        {
+          title: 'Content Curation',
+          description: 'We help you curate a versatile library of images tailored for your website, social media, and marketing campaigns.',
+        },
+        {
+          title: 'Launch Your Brand',
+          description: 'You receive a complete visual toolkit to build a compelling and authentic personal brand that connects with your audience.',
+        },
+      ],
     gallery: [
       { src: 'https://placehold.co/600x400.png', hint: 'creative professional workspace' },
       { src: 'https://placehold.co/600x400.png', hint: 'speaker on stage' },
@@ -120,11 +174,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
         {/* Content Section */}
         <section className="py-12 md:py-16">
-            <div className="container px-4 md:px-6 grid lg:grid-cols-5 gap-12">
+            <div className="container px-4 md:px-6 grid lg:grid-cols-5 gap-12 items-start">
                 <div className="lg:col-span-3">
                     <div className="prose prose-lg max-w-none text-foreground" dangerouslySetInnerHTML={{ __html: service.description }} />
                 </div>
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2 lg:sticky top-24">
                     <Card className="bg-muted">
                         <CardHeader>
                             <CardTitle>What's Included</CardTitle>
@@ -143,9 +197,30 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
             </div>
         </section>
+        
+        {/* Our Process Section */}
+        <section className="py-12 md:py-16 bg-muted">
+            <div className="container px-4 md:px-6">
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl text-center mb-12">
+                    Our Process
+                </h2>
+                <div className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="absolute top-1/2 left-0 w-full h-px bg-border -translate-y-4 hidden sm:block" />
+                    {service.process.map((step, index) => (
+                        <div key={index} className="relative flex flex-col items-center text-center">
+                            <div className="absolute top-0 left-1/2 w-px h-full bg-border -translate-x-1/2 -translate-y-full sm:hidden" />
+                            <div className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold mb-4">{index + 1}</div>
+                            <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                            <p className="text-muted-foreground">{step.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
 
         {/* Gallery Section */}
-        <section className="py-12 md:py-16 bg-muted">
+        <section className="py-12 md:py-16 bg-background">
             <div className="container px-4 md:px-6">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl text-center mb-8">
                     Gallery
@@ -198,3 +273,5 @@ export async function generateStaticParams() {
       slug: service.slug,
     }))
 }
+
+    
