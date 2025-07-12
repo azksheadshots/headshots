@@ -15,6 +15,7 @@ const servicesData = [
     title: 'Corporate Headshots',
     tagline: 'Polished, Professional, and On-Brand',
     mainImage: { src: 'https://placehold.co/1200x600.png', hint: 'business team office' },
+    heading: "Elevate Your Team's Professional Image",
     description: `
       <p class="mb-4">In the corporate world, your image is your brand. Our Corporate Headshot service is designed to provide your entire team with consistent, high-quality headshots that reflect your company's professionalism and values. We work with you to create a look that aligns with your brand identity, ensuring every team member looks their best.</p>
       <p>We can set up at your office for maximum convenience, minimizing disruption to your workday. Our efficient process ensures a quick and pleasant experience for everyone involved, delivering results that will elevate your company's presence on your website, LinkedIn, and marketing materials.</p>
@@ -31,6 +32,10 @@ const servicesData = [
       { src: 'https://placehold.co/600x400.png', hint: 'man in suit' },
       { src: 'https://placehold.co/600x400.png', hint: 'office environment' },
       { src: 'https://placehold.co/600x400.png', hint: 'diverse business team' },
+      { src: 'https://placehold.co/600x400.png', hint: 'professional headshot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'corporate team' },
+      { src: 'https://placehold.co/600x400.png', hint: 'modern office' },
+      { src: 'https://placehold.co/600x400.png', hint: 'business portrait' },
     ],
   },
   {
@@ -38,6 +43,7 @@ const servicesData = [
     title: 'Actor Headshots',
     tagline: 'Capture Your Range, Book the Role',
     mainImage: { src: 'https://placehold.co/1200x600.png', hint: 'actor performing' },
+    heading: 'Headshots That Get You Noticed',
     description: `
       <p class="mb-4">For an actor, a headshot is your single most important marketing tool. It needs to capture your essence and show casting directors your versatility. Our Actor Headshot sessions are tailored to showcase your personality and the types of roles you're aiming for. We work with you to create a range of looks, from commercial to theatrical, that will get you noticed.</p>
       <p>We understand the industry's specific needs and produce clean, compelling, and authentic images that pop. Our session is a collaborative process where we explore different expressions and characters to build a portfolio that truly represents you.</p>
@@ -54,6 +60,10 @@ const servicesData = [
       { src: 'https://placehold.co/600x400.png', hint: 'smiling actress' },
       { src: 'https://placehold.co/600x400.png', hint: 'character headshot' },
       { src: 'https://placehold.co/600x400.png', hint: 'actor laughing' },
+      { src: 'https://placehold.co/600x400.png', hint: 'theatrical headshot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'commercial headshot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'actor close up' },
+      { src: 'https://placehold.co/600x400.png', hint: 'actress portrait' },
     ],
   },
   {
@@ -61,6 +71,7 @@ const servicesData = [
     title: 'Personal Branding Photography',
     tagline: 'Define Your Story, Build Your Brand',
     mainImage: { src: 'https://placehold.co/1200x600.png', hint: 'entrepreneur working' },
+    heading: 'Create a Powerful Visual Narrative',
     description: `
       <p class="mb-4">In today's digital age, a strong personal brand is essential for entrepreneurs, influencers, and thought leaders. Our Personal Branding sessions go beyond a simple headshot to create a comprehensive library of images that tell your unique story. We work with you to understand your brand, your audience, and your message.</p>
       <p>These sessions are designed to provide you with a variety of content for your website, social media, and promotional materials. From lifestyle shots to behind-the-scenes content, we'll create a visual narrative that connects with your audience and establishes you as an expert in your field.</p>
@@ -77,6 +88,10 @@ const servicesData = [
       { src: 'https://placehold.co/600x400.png', hint: 'speaker on stage' },
       { src: 'https://placehold.co/600x400.png', hint: 'author with book' },
       { src: 'https://placehold.co/600x400.png', hint: 'lifestyle portrait city' },
+      { src: 'https://placehold.co/600x400.png', hint: 'entrepreneur portrait' },
+      { src: 'https://placehold.co/600x400.png', hint: 'working on laptop' },
+      { src: 'https://placehold.co/600x400.png', hint: 'creative workspace' },
+      { src: 'https://placehold.co/600x400.png', hint: 'urban professional' },
     ],
   },
 ];
@@ -135,23 +150,28 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
         {/* Content Section */}
         <section className="py-12 md:py-16">
-            <div className="container px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
-                <div className="prose prose-lg max-w-none text-foreground" dangerouslySetInnerHTML={{ __html: service.description }} />
-                <Card className="bg-muted">
-                    <CardHeader>
-                        <CardTitle className="text-primary">What's Included</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ul className="space-y-3">
-                            {service.features.map((feature, index) => (
-                                <li key={index} className="flex items-start gap-3">
-                                    <Check className="h-5 w-5 mt-1 text-primary flex-shrink-0" />
-                                    <span>{feature}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
+            <div className="container px-4 md:px-6">
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl text-center mb-12">
+                    {service.heading}
+                </h2>
+                <div className="grid lg:grid-cols-2 gap-12 items-start">
+                    <div className="prose prose-lg max-w-none text-foreground" dangerouslySetInnerHTML={{ __html: service.description }} />
+                    <Card className="bg-muted sticky top-24">
+                        <CardHeader>
+                            <CardTitle className="text-primary">What's Included</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="space-y-3">
+                                {service.features.map((feature, index) => (
+                                    <li key={index} className="flex items-start gap-3">
+                                        <Check className="h-5 w-5 mt-1 text-primary flex-shrink-0" />
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         </section>
         
@@ -183,7 +203,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl text-center mb-8">
                     Gallery
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                     {service.gallery.map((image, index) => (
                         <div key={index} className="overflow-hidden rounded-lg">
                             <Image
@@ -201,7 +221,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 md:py-24">
+        <section className="py-20 md:py-24 bg-muted">
             <div className="container px-4 md:px-6 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl">
                     Ready to Book Your Session?
