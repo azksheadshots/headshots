@@ -26,7 +26,7 @@ export type AttireSuggestionInput = z.infer<typeof AttireSuggestionInputSchema>;
 const AttireSuggestionOutputSchema = z.object({
   attireSuggestions: z
     .array(z.string())
-    .describe('A list of attire suggestions suitable for the headshot.'),
+    .describe('A list of 3-5 attire suggestions suitable for the headshot. Each suggestion should be a concise, actionable phrase.'),
 });
 export type AttireSuggestionOutput = z.infer<typeof AttireSuggestionOutputSchema>;
 
@@ -39,13 +39,12 @@ const prompt = ai.definePrompt({
   input: {schema: AttireSuggestionInputSchema},
   output: {schema: AttireSuggestionOutputSchema},
   model: 'googleai/gemini-1.5-flash-latest',
-  prompt: `You are an AI assistant specializing in providing attire suggestions for professional headshots.
+  prompt: `You are an expert fashion stylist specializing in professional headshots. Your task is to provide attire suggestions based on a user's profession.
 
-  Based on the user's photo and their profession or desired impression, suggest attire styles that would be suitable for their headshot. Provide a list of suggestions.
+  Analyze the user's profession and provide 3-5 clear, concise, and actionable attire suggestions. The suggestions should be suitable for a professional headshot. Ensure your output is a JSON object with an 'attireSuggestions' array containing the strings.
 
-  Photo: {{media url=photoDataUri}}
-  Profession/Impression: {{{professionDescription}}}
-  Suggestions: `,
+  User's Profession: {{{professionDescription}}}
+  `,
 });
 
 const attireSuggestionFlow = ai.defineFlow(
@@ -56,6 +55,13 @@ const attireSuggestionFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+
+    // If the model returns a null or empty response, return a valid empty array
+    // to prevent the application from crashing or hanging.
+    if (!output || !output.attireSuggestions) {
+      return { attireSuggestions: [] };
+    }
+
+    return output;
   }
 );
