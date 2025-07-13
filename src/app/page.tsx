@@ -14,6 +14,7 @@ import AttireStyler from '@/components/attire-styler';
 import { sendEmailAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Head from 'next/head';
 
 type SelectedPackage = {
   name: string;
@@ -31,7 +32,6 @@ export default function Home() {
       contactForm.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
 
   const services = [
     {
@@ -55,12 +55,12 @@ export default function Home() {
   ];
 
   const portfolioImages = [
-    { src: 'https://placehold.co/400x600.png', alt: 'Corporate headshot of a woman', hint: 'professional woman' },
-    { src: 'https://placehold.co/400x600.png', alt: 'Actor headshot, smiling man', hint: 'smiling man' },
-    { src: 'https://placehold.co/400x600.png', alt: 'Personal branding photo in an urban environment', hint: 'urban portrait' },
-    { src: 'https://placehold.co/400x600.png', alt: 'Creative professional headshot', hint: 'creative professional' },
-    { src: 'https://placehold.co/400x600.png', alt: 'Corporate team photo', hint: 'business team' },
-    { src: 'https://placehold.co/400x600.png', alt: 'Headshot of a man in a suit', hint: 'man suit' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Professional corporate headshot of a woman in Phoenix', hint: 'professional woman' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Smiling actor headshot for Arizona casting calls', hint: 'smiling man' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Personal branding photo in an urban Scottsdale environment', hint: 'urban portrait' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Creative professional headshot in Buckeye, AZ', hint: 'creative professional' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Corporate team photo for a business in Mesa', hint: 'business team' },
+    { src: 'https://placehold.co/400x600.png', alt: 'Headshot of a man in a suit for LinkedIn profile', hint: 'man suit' },
   ];
 
   const blogPosts = [
@@ -89,22 +89,22 @@ export default function Home() {
 
   const testimonials = [
     {
-      quote: "The best headshot experience I've ever had. Professional, fun, and the results were outstanding. I've already recommended them to my entire team.",
+      quote: "The best headshot experience I've ever had. Professional, fun, and the results were outstanding. I've already recommended them to my entire team in Phoenix.",
       name: 'Sarah L.',
       title: 'Marketing Director, Tech Corp'
     },
     {
       quote: "I used to hate having my picture taken, but they made me feel so comfortable. The photos are amazing and have made a huge difference on my LinkedIn profile.",
       name: 'David R.',
-      title: 'Software Engineer'
+      title: 'Software Engineer, Scottsdale'
     },
     {
-        quote: "As an actor, your headshot is everything. KS Headshots captured my personality perfectly. I started getting more callbacks almost immediately!",
+        quote: "As an actor, your headshot is everything. KS Headshots captured my personality perfectly. I started getting more callbacks in the AZ market almost immediately!",
         name: 'Jessica M.',
         title: 'Actor'
     },
     {
-        quote: "Incredibly efficient and professional. They came to our office and made the process seamless for our team of 50. The quality is top-notch.",
+        quote: "Incredibly efficient and professional. They came to our office in Goodyear and made the process seamless for our team of 50. The quality is top-notch.",
         name: 'Mark C.',
         title: 'CEO, Finance Solutions'
     }
@@ -219,16 +219,84 @@ export default function Home() {
     ? `${selectedPackage.type} Package: ${selectedPackage.name}`
     : '';
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "KS Headshots",
+    "image": "https://www.ksheadshots.com/images/logo.png",
+    "@id": "https://www.ksheadshots.com",
+    "url": "https://www.ksheadshots.com",
+    "telephone": "+1-602-317-2239",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Buckeye",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 33.3703,
+      "longitude": -112.5838
+    },
+    "description": "Premier headshot photographer in Buckeye and Phoenix, Arizona, specializing in corporate, actor, and personal branding photography.",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/ksheadshots",
+      "https://www.twitter.com/ksheadshots",
+      "https://www.linkedin.com/company/ksheadshots"
+    ]
+  };
+
+  const imageObjectSchema = portfolioImages.map((image, index) => ({
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "contentUrl": image.src.replace('placehold.co/400x600.png', `ksheadshots.com/portfolio-image-${index}.jpg`),
+    "name": image.alt,
+    "description": image.alt,
+    "license": "https://www.ksheadshots.com/licensing",
+    "acquireLicensePage": "https://www.ksheadshots.com/#contact"
+  }));
+
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <Head>
+        <title>KS Headshots | Premier Headshot Photographer in Phoenix & Buckeye, AZ</title>
+        <meta name="description" content="Get a professional headshot in Phoenix, Buckeye, or Scottsdale that makes an impact. We specialize in corporate, actor, and personal branding photography." />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        {imageObjectSchema.map((schema, index) => (
+          <script
+            key={`image-schema-${index}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
+      </Head>
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
         <section id="home" className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center text-center text-white">
           <Image
             src="https://placehold.co/1920x1080.png"
-            alt="Confident professional smiling in their headshot"
+            alt="Confident professional in a Phoenix headshot session"
             data-ai-hint="professional headshot"
             fill
             className="object-cover"
@@ -238,7 +306,7 @@ export default function Home() {
           <div className="container relative px-4 md:px-6">
             <div className="flex flex-col items-center space-y-6">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Look Like The Professional You Are
+                Headshot Photographer for Phoenix & Buckeye Professionals
               </h1>
               <p className="max-w-[700px] text-lg md:text-xl">
                 In a world of first impressions, a professional headshot is your greatest asset. We help you get one you&apos;ll be proud of.
@@ -273,7 +341,7 @@ export default function Home() {
         <section id="problem" className="w-full pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-24 lg:pb-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Is Your Headshot Holding You Back?</h2>
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Is Your Headshot Holding You Back in the Phoenix Market?</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     A bad headshot makes you look unprofessional and can cost you clients and job opportunities. An great one builds trust before you even meet.
                 </p>
@@ -282,12 +350,12 @@ export default function Home() {
               <div className="flex flex-col items-center text-center p-6 border rounded-lg">
                 <XCircle className="h-12 w-12 text-destructive mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold mb-2">The Wrong Impression</h3>
-                <p className="text-muted-foreground">An outdated or unprofessional photo can make you seem out of touch or untrustworthy, turning away potential clients and employers.</p>
+                <p className="text-muted-foreground">An outdated or unprofessional photo can make you seem out of touch or untrustworthy, turning away potential clients and employers in competitive areas like Scottsdale and Tempe.</p>
               </div>
               <div className="flex flex-col items-center text-center p-6 border rounded-lg">
                 <CheckCircle className="h-12 w-12 text-green-500 mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold mb-2">The Right Connection</h3>
-                <p className="text-muted-foreground">A professional headshot conveys confidence and competence, helping you make a powerful first impression and attract the right opportunities.</p>
+                <p className="text-muted-foreground">A professional headshot conveys confidence and competence, helping you make a powerful first impression and attract the right opportunities across Arizona.</p>
               </div>
             </div>
           </div>
@@ -299,7 +367,7 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Simple 3-Step Plan</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    We make getting a professional headshot easy and stress-free.
+                    We make getting a professional headshot in the Phoenix area easy and stress-free.
                 </p>
             </div>
             <div className="mx-auto mt-12 grid max-w-5xl gap-8 sm:grid-cols-3 md:gap-12">
@@ -331,8 +399,8 @@ export default function Home() {
         <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Clear Pricing, No Surprises</h2>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">Choose the package that's right for you.</p>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Clear Pricing for Phoenix Headshots</h2>
+              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">Choose the package that's right for you. No surprises.</p>
             </div>
 
             <div className="mt-16">
@@ -370,7 +438,7 @@ export default function Home() {
         <section id="conference-pricing" className="w-full bg-muted py-12 md:py-24 lg:py-32">
             <div className="container px-4 md:px-6">
                 <div className="mt-12">
-                  <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots</h3>
+                  <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots in Phoenix</h3>
                   <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
                     {conferencePackages.map((pkg) => (
                       <Card key={pkg.name} className={`flex flex-col bg-background ${pkg.popular ? 'border-primary border-2' : ''}`}>
@@ -405,9 +473,9 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Services</h2>
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Headshot Services</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  We offer a range of specialized headshot services to meet your unique needs.
+                  We offer a range of specialized headshot services in Buckeye and across the Valley to meet your unique needs.
                 </p>
               </div>
             </div>
@@ -432,9 +500,9 @@ export default function Home() {
         <section id="portfolio" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">See the Results</h2>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Headshot Portfolio</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                We've helped hundreds of professionals elevate their image.
+                We've helped hundreds of professionals in Phoenix, Goodyear, and Avondale elevate their image.
               </p>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
@@ -459,7 +527,7 @@ export default function Home() {
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                   <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Don't Just Take Our Word For It</h2>
                   <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                      See what our clients have to say about their experience.
+                      See what our clients from across Arizona have to say about their experience.
                   </p>
               </div>
               <div className="mt-12">
@@ -494,7 +562,7 @@ export default function Home() {
         <section id="clothing-styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">KS Powered Clothing Styler</h2>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">AI Attire Styler for Headshots</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
                 Not sure what to wear? Enter your profession and let our AI suggest the perfect attire for your headshot.
               </p>
@@ -509,7 +577,7 @@ export default function Home() {
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
-                Your Guide to a Perfect Headshot
+                Your Guide to a Perfect Phoenix Headshot
               </h2>
               <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 With a decade of experience in portrait photography, our lead photographer combines technical skill with an artist's eye to create compelling headshots. We believe a great headshot is more than just a photo; it's a powerful communication tool. Our philosophy is centered on collaboration and creating a relaxed environment where your authentic self can shine.
@@ -520,7 +588,7 @@ export default function Home() {
                 src="https://placehold.co/550x550.png"
                 width="550"
                 height="550"
-                alt="Lead photographer at KS Headshots"
+                alt="Lead photographer at KS Headshots, serving Phoenix and Buckeye"
                 data-ai-hint="photographer portrait"
                 className="mx-auto aspect-square overflow-hidden rounded-full object-cover"
               />
@@ -542,7 +610,7 @@ export default function Home() {
                   <Link href={`/blog/${post.slug}`}>
                     <Image
                       src={post.image}
-                      alt={post.title}
+                      alt={`${post.title} - Headshot Blog Post`}
                       data-ai-hint={post.hint}
                       width={600}
                       height={400}
@@ -569,7 +637,7 @@ export default function Home() {
                 Ready to Elevate Your Image?
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Schedule your session today and get a headshot you'll be proud of.
+                Schedule your session today and get a headshot you'll be proud of. We serve clients across the Phoenix metro area, including Buckeye, Goodyear, and Peoria.
               </p>
             </div>
             <div className="mx-auto w-full max-w-7xl">
@@ -592,7 +660,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-4">
                     <MapPin className="h-6 w-6 text-primary" strokeWidth={1.5} />
-                    <span>Buckeye, AZ</span>
+                    <span>Buckeye, AZ (Serving the greater Phoenix area)</span>
                   </div>
                    <div className="flex items-center gap-4">
                     <Clock className="h-6 w-6 text-primary" strokeWidth={1.5} />

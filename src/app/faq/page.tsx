@@ -1,13 +1,19 @@
 
+import { Metadata } from 'next';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Breadcrumbs from '@/components/breadcrumbs';
 
+export const metadata: Metadata = {
+  title: 'FAQ - Headshot Photographer',
+  description: 'Frequently asked questions about our Phoenix and Buckeye headshot photography services. Learn about sessions, pricing, and what to wear.',
+};
+
 const faqData = [
     {
       question: 'What should I wear for my headshot?',
-      answer: "We recommend wearing solid colors that complement your skin tone. Avoid busy patterns, logos, or anything that might distract from your face. The most important thing is to wear something you feel confident and comfortable in. You can also try our 'KS Powered Clothing Styler' on the homepage for AI-powered suggestions!",
+      answer: "We recommend wearing solid colors that complement your skin tone. For Phoenix professionals, classic and modern looks work well. Avoid busy patterns, logos, or anything that might distract from your face. The most important thing is to wear something you feel confident and comfortable in. You can also try our 'AI Attire Styler' on the homepage for AI-powered suggestions!",
     },
     {
       question: 'How long does a session take?',
@@ -19,11 +25,11 @@ const faqData = [
     },
     {
       question: 'Do you offer hair and makeup services?',
-      answer: 'While we don\'t have in-house hair and makeup artists, we do offer a consultation as part of our Executive package and can provide a list of trusted local professionals that we recommend.',
+      answer: 'While we don\'t have in-house hair and makeup artists, we do offer a consultation as part of our Executive package and can provide a list of trusted local professionals that we recommend in the Phoenix and Scottsdale area.',
     },
     {
       question: 'Can you come to my office to shoot our whole team?',
-      answer: 'Absolutely! We specialize in corporate headshots and can bring our mobile studio setup to your location for maximum convenience. This is a great way to ensure consistent, professional headshots for your entire team with minimal disruption to your workday.',
+      answer: 'Absolutely! We specialize in corporate headshots and can bring our mobile studio setup to your location in Phoenix, Tempe, Chandler, or anywhere in the Valley for maximum convenience. This is a great way to ensure consistent, professional headshots for your entire team with minimal disruption to your workday.',
     },
     {
         question: 'What kind of retouching do you do?',
@@ -44,7 +50,7 @@ export default function FAQPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
                 <h1 className="text-4xl font-bold tracking-tighter text-primary sm:text-5xl">Frequently Asked Questions</h1>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                    Have a question? We've got answers. If you don't see your question here, feel free to contact us.
+                    Have a question about getting a headshot in Phoenix? We've got answers. If you don't see your question here, feel free to contact us.
                 </p>
             </div>
 

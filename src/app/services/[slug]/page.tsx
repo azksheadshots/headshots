@@ -1,4 +1,5 @@
 
+import { Metadata } from 'next';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { notFound } from 'next/navigation';
@@ -7,18 +8,19 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/breadcrumbs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 const servicesData = [
   {
     slug: 'corporate-headshots',
-    title: 'Corporate Headshots',
+    title: 'Corporate Headshots Phoenix',
+    metaDescription: 'Professional corporate headshots in Phoenix & Buckeye. We provide on-location studio setups for consistent, on-brand team photos.',
     tagline: 'Polished, Professional, and On-Brand',
     mainImage: { src: 'https://placehold.co/1200x600.png', hint: 'business team office' },
-    heading: "Elevate Your Team's Professional Image",
+    heading: "Elevate Your Team's Professional Image in Phoenix",
     description: `
-      <p class="mb-4">In the corporate world, your image is your brand. Our Corporate Headshot service is designed to provide your entire team with consistent, high-quality headshots that reflect your company's professionalism and values. We work with you to create a look that aligns with your brand identity, ensuring every team member looks their best.</p>
-      <p>We can set up at your office for maximum convenience, minimizing disruption to your workday. Our efficient process ensures a quick and pleasant experience for everyone involved, delivering results that will elevate your company's presence on your website, LinkedIn, and marketing materials.</p>
+      <p class="mb-4">In the corporate world of Phoenix, your image is your brand. Our Corporate Headshot service is designed to provide your entire team with consistent, high-quality headshots that reflect your company's professionalism and values. We work with you to create a look that aligns with your brand identity, ensuring every team member looks their best.</p>
+      <p>We can set up our mobile studio at your office in Phoenix, Scottsdale, Tempe, or anywhere in the valley for maximum convenience, minimizing disruption to your workday. Our efficient process ensures a quick and pleasant experience for everyone, delivering results that will elevate your company's presence on your website, LinkedIn, and marketing materials.</p>
     `,
     features: [
       'On-location studio setup at your office',
@@ -28,70 +30,72 @@ const servicesData = [
       'Group and team photos available',
     ],
     gallery: [
-      { src: 'https://placehold.co/600x400.png', hint: 'corporate woman portrait' },
-      { src: 'https://placehold.co/600x400.png', hint: 'man in suit' },
-      { src: 'https://placehold.co/600x400.png', hint: 'office environment' },
-      { src: 'https://placehold.co/600x400.png', hint: 'diverse business team' },
-      { src: 'https://placehold.co/600x400.png', hint: 'professional headshot' },
-      { src: 'https://placehold.co/600x400.png', hint: 'corporate team' },
-      { src: 'https://placehold.co/600x400.png', hint: 'modern office' },
-      { src: 'https://placehold.co/600x400.png', hint: 'business portrait' },
+      { src: 'https://placehold.co/600x400.png', hint: 'corporate woman portrait', alt: 'Phoenix corporate woman headshot portrait' },
+      { src: 'https://placehold.co/600x400.png', hint: 'man in suit', alt: 'Professional man in suit headshot in Scottsdale' },
+      { src: 'https://placehold.co/600x400.png', hint: 'office environment', alt: 'Team headshots in a modern Phoenix office environment' },
+      { src: 'https://placehold.co/600x400.png', hint: 'diverse business team', alt: 'Headshot of a diverse business team in Arizona' },
+      { src: 'https://placehold.co/600x400.png', hint: 'professional headshot', alt: 'Clean and professional corporate headshot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'corporate team', alt: 'A corporate team poses for a group photo' },
+      { src: 'https://placehold.co/600x400.png', hint: 'modern office', alt: 'Modern office setting for headshots in Tempe' },
+      { src: 'https://placehold.co/600x400.png', hint: 'business portrait', alt: 'Executive business portrait in Phoenix' },
     ],
   },
   {
     slug: 'actor-headshots',
-    title: 'Actor Headshots',
+    title: 'Actor Headshots AZ',
+    metaDescription: 'Stand out in Arizona casting calls with professional actor headshots. We capture your range and personality to get you noticed by agents and directors.',
     tagline: 'Capture Your Range, Book the Role',
     mainImage: { src: 'https://placehold.co/1200x600.png', hint: 'actor performing' },
-    heading: 'Headshots That Get You Noticed',
+    heading: 'Headshots That Get You Noticed in the AZ Film Market',
     description: `
-      <p class="mb-4">For an actor, a headshot is your single most important marketing tool. It needs to capture your essence and show casting directors your versatility. Our Actor Headshot sessions are tailored to showcase your personality and the types of roles you're aiming for. We work with you to create a range of looks, from commercial to theatrical, that will get you noticed.</p>
+      <p class="mb-4">For an actor in Arizona, a headshot is your single most important marketing tool. It needs to capture your essence and show casting directors in Phoenix and beyond your versatility. Our Actor Headshot sessions are tailored to showcase your personality and the types of roles you're aiming for. We work with you to create a range of looks, from commercial to theatrical, that will get you noticed.</p>
       <p>We understand the industry's specific needs and produce clean, compelling, and authentic images that pop. Our session is a collaborative process where we explore different expressions and characters to build a portfolio that truly represents you.</p>
     `,
     features: [
       'Pre-session consultation on wardrobe and character types',
       'Multiple looks and outfit changes',
-      'Indoor and outdoor location options',
+      'Indoor and outdoor location options in the Phoenix area',
       'Shots that highlight your personality and range',
       'Industry-standard formatting and retouching',
     ],
     gallery: [
-      { src: 'https://placehold.co/600x400.png', hint: 'dramatic actor portrait' },
-      { src: 'https://placehold.co/600x400.png', hint: 'smiling actress' },
-      { src: 'https://placehold.co/600x400.png', hint: 'character headshot' },
-      { src: 'https://placehold.co/600x400.png', hint: 'actor laughing' },
-      { src: 'https://placehold.co/600x400.png', hint: 'theatrical headshot' },
-      { src: 'https://placehold.co/600x400.png', hint: 'commercial headshot' },
-      { src: 'https://placehold.co/600x400.png', hint: 'actor close up' },
-      { src: 'https://placehold.co/600x400.png', hint: 'actress portrait' },
+      { src: 'https://placehold.co/600x400.png', hint: 'dramatic actor portrait', alt: 'Dramatic actor headshot for theatrical roles in Arizona' },
+      { src: 'https://placehold.co/600x400.png', hint: 'smiling actress', alt: 'Smiling actress with a commercial look for AZ casting' },
+      { src: 'https://placehold.co/600x400.png', hint: 'character headshot', alt: 'Unique character headshot for an actor' },
+      { src: 'https://placehold.co/600x400.png', hint: 'actor laughing', alt: 'Authentic laughing actor portrait' },
+      { src: 'https://placehold.co/600x400.png', hint: 'theatrical headshot', alt: 'Theatrical headshot with moody lighting' },
+      { src: 'https://placehold.co/600x400.png', hint: 'commercial headshot', alt: 'Bright and friendly commercial headshot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'actor close up', alt: 'Intense close-up actor headshot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'actress portrait', alt: 'Natural light actress portrait in Scottsdale' },
     ],
   },
   {
     slug: 'personal-branding',
-    title: 'Personal Branding Photography',
+    title: 'Personal Branding Photography Phoenix',
+    metaDescription: 'Build your personal brand in Phoenix with a comprehensive set of photos. Ideal for entrepreneurs, influencers, and consultants.',
     tagline: 'Define Your Story, Build Your Brand',
     mainImage: { src: 'https://placehold.co/1200x600.png', hint: 'entrepreneur working' },
     heading: 'Create a Powerful Visual Narrative',
     description: `
-      <p class="mb-4">In today's digital age, a strong personal brand is essential for entrepreneurs, influencers, and thought leaders. Our Personal Branding sessions go beyond a simple headshot to create a comprehensive library of images that tell your unique story. We work with you to understand your brand, your audience, and your message.</p>
-      <p>These sessions are designed to provide you with a variety of content for your website, social media, and promotional materials. From lifestyle shots to behind-the-scenes content, we'll create a visual narrative that connects with your audience and establishes you as an expert in your field.</p>
+      <p class="mb-4">In today's digital age, a strong personal brand is essential for entrepreneurs, influencers, and thought leaders in the Phoenix market. Our Personal Branding sessions go beyond a simple headshot to create a comprehensive library of images that tell your unique story. We work with you to understand your brand, your audience, and your message.</p>
+      <p>These sessions are designed to provide you with a variety of content for your website, social media, and promotional materials. From lifestyle shots in Downtown Phoenix to behind-the-scenes content at your workspace, we'll create a visual narrative that connects with your audience and establishes you as an expert in your field.</p>
     `,
     features: [
       'In-depth brand discovery session',
-      'Multiple locations and scenarios',
+      'Multiple locations and scenarios across Phoenix and Scottsdale',
       'A mix of headshots, lifestyle, and detail shots',
       'A library of on-brand images for all your marketing needs',
       'Guidance on using your images effectively online',
     ],
     gallery: [
-      { src: 'https://placehold.co/600x400.png', hint: 'creative professional workspace' },
-      { src: 'https://placehold.co/600x400.png', hint: 'speaker on stage' },
-      { src: 'https://placehold.co/600x400.png', hint: 'author with book' },
-      { src: 'https://placehold.co/600x400.png', hint: 'lifestyle portrait city' },
-      { src: 'https://placehold.co/600x400.png', hint: 'entrepreneur portrait' },
-      { src: 'https://placehold.co/600x400.png', hint: 'working on laptop' },
-      { src: 'https://placehold.co/600x400.png', hint: 'creative workspace' },
-      { src: 'https://placehold.co/600x400.png', hint: 'urban professional' },
+      { src: 'https://placehold.co/600x400.png', hint: 'creative professional workspace', alt: 'Creative professional in their Phoenix workspace' },
+      { src: 'https://placehold.co/600x400.png', hint: 'speaker on stage', alt: 'Public speaker on stage at a Phoenix conference' },
+      { src: 'https://placehold.co/600x400.png', hint: 'author with book', alt: 'Author with their book, personal branding shot' },
+      { src: 'https://placehold.co/600x400.png', hint: 'lifestyle portrait city', alt: 'Lifestyle portrait in a city environment like Tempe' },
+      { src: 'https://placehold.co/600x400.png', hint: 'entrepreneur portrait', alt: 'Modern entrepreneur portrait in Arizona' },
+      { src: 'https://placehold.co/600x400.png', hint: 'working on laptop', alt: 'Personal branding photo working on a laptop' },
+      { src: 'https://placehold.co/600x400.png', hint: 'creative workspace', alt: 'Details of a creative workspace' },
+      { src: 'https://placehold.co/600x400.png', hint: 'urban professional', alt: 'Urban professional on a city street' },
     ],
   },
 ];
@@ -111,6 +115,22 @@ const simpleProcess = [
     },
 ];
 
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+    const service = servicesData.find(s => s.slug === params.slug);
+  
+    if (!service) {
+      return {
+        title: 'Not Found',
+        description: 'The page you are looking for does not exist.',
+      }
+    }
+  
+    return {
+      title: service.title,
+      description: service.metaDescription,
+    }
+}
+
 
 export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = servicesData.find(s => s.slug === params.slug);
@@ -127,7 +147,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="relative w-full h-[50vh] flex items-center justify-center text-center text-white">
           <Image
             src={service.mainImage.src}
-            alt={service.title}
+            alt={`${service.title} service main image`}
             data-ai-hint={service.mainImage.hint}
             fill
             className="object-cover"
@@ -208,7 +228,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                         <div key={index} className="overflow-hidden rounded-lg">
                             <Image
                                 src={image.src}
-                                alt={`${service.title} gallery image ${index + 1}`}
+                                alt={image.alt || `${service.title} gallery image ${index + 1}`}
                                 data-ai-hint={image.hint}
                                 width={600}
                                 height={400}
