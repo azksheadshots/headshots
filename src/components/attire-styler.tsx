@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { getAttireSuggestionAction } from '@/lib/actions';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
@@ -62,10 +62,7 @@ export default function AttireStyler() {
 
   return (
     <Card className="w-full max-w-2xl mx-auto bg-background">
-      <CardHeader>
-        <CardTitle className="text-center text-2xl">Get your clothing suggestions for headshots</CardTitle>
-      </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-8">
           <div className="space-y-4">
             <div className="space-y-2">
@@ -104,10 +101,12 @@ export default function AttireStyler() {
                      ))}
                    </ul>
                 )}
-                {!isLoading && !error && suggestions.length === 0 && <p className="text-muted-foreground text-center pt-16">Your AI suggestions will appear here.</p>}
+                {!isLoading && !error && suggestions.length === 0 && <p className="text-muted-foreground text-center pt-16">Your suggestions will appear here.</p>}
             </div>
           </div>
       </CardContent>
     </Card>
   );
 }
+
+    

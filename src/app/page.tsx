@@ -564,7 +564,7 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">KS Clothing Styler</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                Not sure what to wear? Enter your profession and let our AI suggest the perfect attire for your headshot.
+                Not sure what to wear? Enter your profession and let our styler suggest the perfect attire for your headshot.
               </p>
             </div>
             <div className="mt-8">
@@ -676,3 +676,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
