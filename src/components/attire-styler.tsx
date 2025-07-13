@@ -11,51 +11,46 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Lightbulb, Loader2, TriangleAlert } from 'lucide-react';
+import { Lightbulb, Loader2, PartyPopper, TriangleAlert, Wand2 } from 'lucide-react';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
+// Define the form schema to match the Genkit flow's input
 const formSchema = z.object({
-  professionDescription: z.string().min(3, 'Please describe your profession.'),
+  profession: z.string().min(3, {
+    message: 'Please enter a profession (e.g., "doctor", "artist").',
+  }),
 });
-
-// A default placeholder image to send to the AI.
-// The AI needs an image, but for this simplified version, the content of the image doesn't matter.
-const DUMMY_IMAGE_DATA_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-
 
 export default function AttireStyler() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      professionDescription: '',
+      profession: '',
     },
   });
-  
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     setError(null);
     setSuggestions([]);
 
     const result = await getAttireSuggestionAction({
-      professionDescription: values.professionDescription,
-      photoDataUri: DUMMY_IMAGE_DATA_URI,
+      profession: values.profession,
     });
 
     if (result.success && result.suggestions) {
-      setSuggestions(result.suggestions);
+      if (result.suggestions.length > 0) {
+        setSuggestions(result.suggestions);
+      } else {
+        setError("We couldn't generate suggestions for that profession. Please try another one.");
+      }
     } else {
       setError(result.error || 'An unexpected error occurred.');
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: result.error || "Could not get suggestions. Please try again.",
-      });
     }
     setIsLoading(false);
   };
@@ -63,50 +58,70 @@ export default function AttireStyler() {
   return (
     <Card className="w-full max-w-2xl mx-auto bg-background">
       <CardContent className="pt-6">
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-8">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="profession">Enter Your Profession</Label>
-              <Input id="profession" placeholder="e.g., Creative Director, Tech CEO, Lawyer" {...form.register('professionDescription')} />
-              {form.formState.errors.professionDescription && (
-                <p className="text-sm text-destructive">{form.formState.errors.professionDescription.message}</p>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="profession"
+              render={({ field }) => (
+                <FormItem>
+                  <Label htmlFor="profession">Enter Your Profession</Label>
+                  <FormControl>
+                    <Input id="profession" placeholder="e.g., Lawyer, Graphic Designer, Chef" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
-            </div>
-            
-            <Button type="submit" disabled={isLoading} className="w-full mt-4">
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            />
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Wand2 className="mr-2 h-4 w-4" />
+              )}
               Get Suggestions
             </Button>
-          </div>
-        </form>
+          </form>
+        </Form>
 
-        <div className="space-y-4 mt-8">
-            <Label>Your Suggestions</Label>
-            <div className="h-full min-h-[200px] bg-muted rounded-lg p-4 space-y-3 overflow-y-auto">
-                {isLoading && <div className="flex items-center justify-center h-full"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>}
-                {error && 
-                    <Alert variant="destructive">
-                      <TriangleAlert className="h-4 w-4" />
-                      <AlertTitle>Error</AlertTitle>
-                      <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                }
-                {suggestions.length > 0 && (
-                     <ul className="list-none space-y-2">
-                     {suggestions.map((suggestion, index) => (
-                       <li key={index} className="p-3 bg-background rounded-md shadow-sm flex items-start gap-3">
-                         <Lightbulb className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
-                         <span>{suggestion}</span>
-                       </li>
-                     ))}
-                   </ul>
-                )}
-                {!isLoading && !error && suggestions.length === 0 && <p className="text-muted-foreground text-center pt-16">Your suggestions will appear here.</p>}
+        <div className="mt-6">
+          {isLoading && (
+            <div className="flex flex-col items-center justify-center text-center text-muted-foreground rounded-lg bg-muted min-h-[200px] p-4">
+                <Loader2 className="h-8 w-8 animate-spin mb-2" />
+                <p>Styling your perfect look...</p>
             </div>
-          </div>
+          )}
+          
+          {error && (
+            <Alert variant="destructive" className="min-h-[200px]">
+              <TriangleAlert className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {!isLoading && !error && suggestions.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold mb-3 flex items-center"><PartyPopper className="h-5 w-5 mr-2 text-primary"/>Your Style Suggestions</h3>
+              <ul className="list-none space-y-2">
+                {suggestions.map((suggestion, index) => (
+                  <li key={index} className="p-3 bg-muted rounded-md flex items-start gap-3">
+                    <Lightbulb className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+                    <span>{suggestion}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {!isLoading && !error && suggestions.length === 0 && (
+             <div className="flex flex-col items-center justify-center text-center text-muted-foreground rounded-lg bg-muted min-h-[200px] p-4">
+                <Wand2 className="h-8 w-8 mb-2"/>
+                <p>Your AI-powered suggestions will appear here.</p>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
 }
-
-    

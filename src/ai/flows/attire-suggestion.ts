@@ -3,7 +3,7 @@
 /**
  * @fileOverview Provides AI-powered attire suggestions for headshots based on user input.
  *
- * - attireSuggestion - A function that takes a photo, profession description, and desired impression, and returns attire suggestions.
+ * - attireSuggestion - A function that takes a profession and returns attire suggestions.
  * - AttireSuggestionInput - The input type for the attireSuggestion function.
  * - AttireSuggestionOutput - The return type for the attireSuggestion function.
  */
@@ -11,57 +11,60 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+// 1. Define the input schema: We only need the user's profession.
 const AttireSuggestionInputSchema = z.object({
-  photoDataUri: z
+  profession: z
     .string()
-    .describe(
-      "A photo of the user or a model, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
-  professionDescription: z
-    .string()
-    .describe('The user\'s profession or a description of the desired impression.'),
+    .min(3, 'Profession must be at least 3 characters.')
+    .describe('The user\'s profession, e.g., "real estate agent" or "software engineer".'),
 });
 export type AttireSuggestionInput = z.infer<typeof AttireSuggestionInputSchema>;
 
+// 2. Define the output schema: We expect an array of suggestion strings.
 const AttireSuggestionOutputSchema = z.object({
-  attireSuggestions: z
+  suggestions: z
     .array(z.string())
-    .describe('A list of 3-5 attire suggestions suitable for the headshot. Each suggestion should be a concise, actionable phrase.'),
+    .describe('A list of 3-5 distinct attire suggestions. Each suggestion should be a concise, actionable phrase.'),
 });
 export type AttireSuggestionOutput = z.infer<typeof AttireSuggestionOutputSchema>;
 
-export async function attireSuggestion(input: AttireSuggestionInput): Promise<AttireSuggestionOutput> {
-  return attireSuggestionFlow(input);
-}
 
-const prompt = ai.definePrompt({
+// 3. Define the AI prompt. It's configured to use a specific model and expect a specific JSON output.
+const attirePrompt = ai.definePrompt({
   name: 'attireSuggestionPrompt',
-  input: {schema: AttireSuggestionInputSchema},
-  output: {schema: AttireSuggestionOutputSchema},
   model: 'googleai/gemini-1.5-flash-latest',
-  prompt: `You are an expert fashion stylist specializing in professional headshots. Your task is to provide attire suggestions based on a user's profession.
-
-  Analyze the user's profession and provide 3-5 clear, concise, and actionable attire suggestions. The suggestions should be suitable for a professional headshot. Ensure your output is a JSON object with an 'attireSuggestions' array containing the strings.
-
-  User's Profession: {{{professionDescription}}}
+  input: { schema: AttireSuggestionInputSchema },
+  output: { schema: AttireSuggestionOutputSchema },
+  prompt: `You are an expert fashion stylist advising a client on what to wear for a professional headshot.
+  Based on the client's profession, provide 3-5 clear and concise attire suggestions.
+  The suggestions should be suitable for a professional setting and create a positive impression.
+  
+  Client's Profession: {{{profession}}}
   `,
 });
 
+// 4. Define the main flow. This function orchestrates the call to the AI.
 const attireSuggestionFlow = ai.defineFlow(
   {
     name: 'attireSuggestionFlow',
     inputSchema: AttireSuggestionInputSchema,
     outputSchema: AttireSuggestionOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-
-    // If the model returns a null or empty response, return a valid empty array
-    // to prevent the application from crashing or hanging.
-    if (!output || !output.attireSuggestions) {
-      return { attireSuggestions: [] };
+  async (input) => {
+    // Generate content using the defined prompt and the user's input.
+    const { output } = await attirePrompt(input);
+    
+    // Robustness check: If the AI returns a nullish value or an empty array,
+    // return a valid empty suggestions array to prevent crashes.
+    if (!output || !output.suggestions) {
+      return { suggestions: [] };
     }
-
+    
     return output;
   }
 );
+
+// 5. Export a wrapper function to be called by server actions.
+export async function attireSuggestion(input: AttireSuggestionInput): Promise<AttireSuggestionOutput> {
+  return attireSuggestionFlow(input);
+}

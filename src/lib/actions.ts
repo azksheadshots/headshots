@@ -1,18 +1,29 @@
+
 'use server';
 
 import { attireSuggestion, AttireSuggestionInput } from '@/ai/flows/attire-suggestion';
 import { Resend } from 'resend';
 
-export async function getAttireSuggestionAction(input: AttireSuggestionInput): Promise<{ success: boolean; suggestions?: string[]; error?: string; }> {
+// This is the server action for the AI Attire Styler.
+// It acts as a bridge between the client component and the Genkit flow.
+export async function getAttireSuggestionAction(
+  input: AttireSuggestionInput
+): Promise<{ success: boolean; suggestions?: string[]; error?: string; }> {
   try {
+    // We call the main attireSuggestion flow with the validated input.
     const result = await attireSuggestion(input);
-    if (result && result.attireSuggestions) {
-      return { success: true, suggestions: result.attireSuggestions };
+
+    // If the flow returns a result with suggestions, we return them to the client.
+    if (result && result.suggestions) {
+      return { success: true, suggestions: result.suggestions };
     }
-    return { success: false, error: 'AI did not return any suggestions.' };
+    
+    // If the AI returns no suggestions, we send back a specific error message.
+    return { success: false, error: 'The AI did not return any suggestions. Please try a different profession.' };
   } catch (error) {
     console.error('Error in getAttireSuggestionAction:', error);
-    return { success: false, error: 'Failed to get suggestions from AI. Please try again.' };
+    // This is a catch-all for any other errors during the process.
+    return { success: false, error: 'An unexpected error occurred. Please try again later.' };
   }
 }
 
