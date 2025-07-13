@@ -563,7 +563,7 @@ export default function Home() {
         </section>
 
         <section id="contact" className="w-full bg-background py-12 md:py-24 lg:py-32">
-          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
+          <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-16">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
                 Ready to Elevate Your Image?
@@ -572,7 +572,7 @@ export default function Home() {
                 Schedule your session today and get a headshot you'll be proud of.
               </p>
             </div>
-            <div className="mx-auto w-full max-w-screen-xl">
+            <div className="mx-auto w-full max-w-7xl">
               <div className="grid lg:grid-cols-2 lg:gap-12">
                 <form id="contact-form" action={handleFormSubmit} className="flex flex-col gap-4 text-left">
                   <Input name="name" placeholder="Name" type="text" required />
