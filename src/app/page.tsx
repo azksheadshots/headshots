@@ -562,7 +562,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="contact" className="w-full bg-background py-12 md:py-24 lg:py-32">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
