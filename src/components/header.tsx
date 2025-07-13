@@ -9,20 +9,20 @@ import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
+const navLinks = [
+  { href: '/#services', label: 'Services' },
+  { href: '/#pricing', label: 'Pricing' },
+  { href: '/#portfolio', label: 'Portfolio' },
+  { href: '/#clothing-styler', label: 'Clothing Styler' },
+  { href: '/#about', label: 'About' },
+  { href: '/#blog', label: 'Blog' },
+  { href: '/#contact', label: 'Contact' },
+];
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
-
-  const navLinks = [
-    { href: '/#services', label: 'Services' },
-    { href: '/#pricing', label: 'Pricing' },
-    { href: '/#portfolio', label: 'Portfolio' },
-    { href: '/#clothing-styler', label: 'Clothing Styler' },
-    { href: '/#about', label: 'About' },
-    { href: '/#blog', label: 'Blog' },
-    { href: '/#contact', label: 'Contact' },
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +71,7 @@ export default function Header() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [pathname, navLinks]);
+  }, [pathname]);
 
 
 
