@@ -251,16 +251,16 @@ export default function Home() {
         </section>
 
         {/* Clothing Styler CTA Section */}
-        <section id="clothing-styler-cta" className="w-full py-12">
+        <section id="clothing-styler-cta" className="relative w-full -mt-16 z-10">
           <div className="container px-4 md:px-6">
             <a href="#clothing-styler" className="group block max-w-2xl mx-auto">
-              <Card className="bg-secondary hover:shadow-lg transition-shadow">
+              <Card className="bg-primary text-primary-foreground shadow-lg hover:shadow-2xl transition-shadow">
                 <CardContent className="p-6">
-                  <div className="flex flex-col items-center justify-center gap-4 text-center text-secondary-foreground md:flex-row md:gap-8">
-                    <Shirt className="h-10 w-10 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.5} />
+                  <div className="flex flex-col items-center justify-center gap-4 text-center md:flex-row md:gap-8">
+                    <Shirt className="h-10 w-10 text-primary-foreground transition-transform duration-300 group-hover:scale-110" strokeWidth={1.5} />
                     <div className="space-y-1">
                       <h3 className="text-2xl font-bold tracking-tight">Don&apos;t know what to wear for your headshot?</h3>
-                      <p className="text-lg font-medium text-secondary-foreground/80 underline underline-offset-4 group-hover:text-secondary-foreground">Try our free KS Powered Clothing Styler</p>
+                      <p className="text-lg font-medium text-primary-foreground/80 underline underline-offset-4 group-hover:text-primary-foreground">Try our free KS Powered Clothing Styler</p>
                     </div>
                   </div>
                 </CardContent>
@@ -270,7 +270,7 @@ export default function Home() {
         </section>
 
         {/* The Problem Section */}
-        <section id="problem" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="problem" className="w-full pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-24 lg:pb-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Is Your Headshot Holding You Back?</h2>
