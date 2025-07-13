@@ -563,7 +563,7 @@ export default function Home() {
         </section>
 
         <section id="contact" className="w-full bg-background py-12 md:py-24 lg:py-32">
-          <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-16">
+          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-16">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
                 Ready to Elevate Your Image?
@@ -573,7 +573,7 @@ export default function Home() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-7xl">
-              <div className="grid lg:grid-cols-2 lg:gap-12">
+              <div className="grid lg:grid-cols-2 lg:gap-12 lg:items-center">
                 <form id="contact-form" action={handleFormSubmit} className="flex flex-col gap-4 text-left">
                   <Input name="name" placeholder="Name" type="text" required />
                   <Input name="email" placeholder="Email" type="email" required />
@@ -581,7 +581,7 @@ export default function Home() {
                   <Textarea name="message" placeholder={contactFormPlaceholder} rows={5} required />
                   <Button type="submit" className="bg-primary-gradient text-primary-foreground">Send Message</Button>
                 </form>
-                <div className="mt-8 flex flex-col items-start gap-6 text-left lg:mt-0">
+                <div className="mt-8 flex flex-col items-center lg:items-start gap-6 text-center lg:text-left lg:mt-0">
                   <div className="flex items-center gap-4">
                     <Mail className="h-6 w-6 text-primary" strokeWidth={1.5}/>
                     <a href="mailto:info@ksheadshots.com" className="hover:underline">info@ksheadshots.com</a>
