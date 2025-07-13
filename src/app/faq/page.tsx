@@ -1,6 +1,6 @@
 
 import { Metadata } from 'next';
-import { Header } from '@/components/header';
+import Header from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Breadcrumbs from '@/components/breadcrumbs';

@@ -1,6 +1,6 @@
 
 import { Metadata } from 'next';
-import { Header } from '@/components/header';
+import Header from '@/components/header';
 import { Footer } from '@/components/footer';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
