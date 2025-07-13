@@ -572,7 +572,7 @@ export default function Home() {
                 Schedule your session today and get a headshot you'll be proud of.
               </p>
             </div>
-            <div className="mx-auto w-full max-w-screen-lg">
+            <div className="mx-auto w-full max-w-screen-xl">
               <div className="grid lg:grid-cols-2 lg:gap-12">
                 <form id="contact-form" action={handleFormSubmit} className="flex flex-col gap-4 text-left">
                   <Input name="name" placeholder="Name" type="text" required />
