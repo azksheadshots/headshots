@@ -80,7 +80,7 @@ export function Header() {
     <header className={cn(`sticky top-0 z-50 w-full transition-colors duration-300`, isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground')}>
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link href="/" className="mr-6 flex items-center gap-2">
-          <Image src="https://placehold.co/120x50.png" alt="KS Headshots Logo" width={120} height={50} data-ai-hint="logo" />
+          <Image src="/logo.png" alt="KS Headshots Logo" width={120} height={50} />
         </Link>
         
         <div className="flex w-full items-center justify-end gap-4">
@@ -109,7 +109,7 @@ export function Header() {
             <SheetContent side="right" className="bg-primary text-primary-foreground">
               <div className="grid gap-6 p-6">
                  <Link href="/" className="flex items-center gap-2">
-                    <Image src="https://placehold.co/120x50.png" alt="KS Headshots Logo" width={120} height={50} data-ai-hint="logo" />
+                    <Image src="/logo.png" alt="KS Headshots Logo" width={120} height={50} />
                 </Link>
                 {navLinks.map((link) => (
                     <Link key={link.href} href={link.href} className="text-lg font-medium text-primary-foreground/80 hover:text-accent">
