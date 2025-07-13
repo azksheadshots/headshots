@@ -1,4 +1,3 @@
-
 'use server';
 
 import { attireSuggestion, AttireSuggestionInput } from '@/ai/flows/attire-suggestion';
@@ -18,7 +17,12 @@ export async function getAttireSuggestionAction(input: AttireSuggestionInput): P
 }
 
 export async function sendEmailAction(formData: FormData): Promise<{ success: boolean; error?: string; }> {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is not configured.');
+      return { success: false, error: 'The server is not configured to send emails.' };
+    }
+    const resend = new Resend(apiKey);
 
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
