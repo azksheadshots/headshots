@@ -1,4 +1,5 @@
-// 'use server';
+
+'use server';
 /**
  * @fileOverview Provides AI-powered attire suggestions for headshots based on user input.
  *
@@ -7,7 +8,6 @@
  * - AttireSuggestionOutput - The return type for the attireSuggestion function.
  */
 
-'use server';
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
@@ -38,6 +38,7 @@ const prompt = ai.definePrompt({
   name: 'attireSuggestionPrompt',
   input: {schema: AttireSuggestionInputSchema},
   output: {schema: AttireSuggestionOutputSchema},
+  model: 'googleai/gemini-1.5-flash-latest',
   prompt: `You are an AI assistant specializing in providing attire suggestions for professional headshots.
 
   Based on the user's photo and their profession or desired impression, suggest attire styles that would be suitable for their headshot. Provide a list of suggestions.

@@ -1,3 +1,4 @@
+
 import {genkit} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
 
@@ -8,6 +9,7 @@ if (!googleApiKey) {
   console.warn(
     'GOOGLE_API_KEY is not defined in the environment variables. The AI Styler will not work.'
   );
+  throw new Error('GOOGLE_API_KEY is not defined.');
 }
 
 export const ai = genkit({
@@ -16,5 +18,4 @@ export const ai = genkit({
       apiKey: googleApiKey,
     }),
   ],
-  model: 'googleai/gemini-2.0-flash',
 });
