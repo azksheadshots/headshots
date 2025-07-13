@@ -8,31 +8,44 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const pathname = usePathname();
 
   const navLinks = [
-    { href: '#services', label: 'Services' },
-    { href: '#pricing', label: 'Pricing' },
-    { href: '#portfolio', label: 'Portfolio' },
-    { href: '#clothing-styler', label: 'Clothing Styler' },
-    { href: '#about', label: 'About' },
-    { href: '#blog', label: 'Blog' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/#services', label: 'Services' },
+    { href: '/#pricing', label: 'Pricing' },
+    { href: '/#portfolio', label: 'Portfolio' },
+    { href: '/#clothing-styler', label: 'Clothing Styler' },
+    { href: '/#about', label: 'About' },
+    { href: '/#blog', label: 'Blog' },
+    { href: '/#contact', label: 'Contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
+      const isHomepage = pathname === '/';
       setIsScrolled(window.scrollY > 10);
 
+      if (!isHomepage) {
+        setActiveSection('');
+        return;
+      }
+
       let currentSection = '';
-      const sections = navLinks.map(link => document.getElementById(link.href.substring(1))).filter(Boolean);
+      const sections = navLinks.map(link => document.getElementById(link.href.substring(2))).filter(Boolean);
       
       const conferenceSection = document.getElementById('conference-pricing');
       if (conferenceSection) {
         sections.push(conferenceSection);
+      }
+      
+      const testimonialsSection = document.getElementById('testimonials');
+      if (testimonialsSection) {
+        sections.push(testimonialsSection);
       }
 
       const scrollPosition = window.scrollY + 100; // Offset for header height
@@ -42,9 +55,9 @@ export function Header() {
           if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
             
             if(section.id === 'conference-pricing'){
-                currentSection = '#pricing';
+                currentSection = '/#pricing';
             } else {
-                currentSection = `#${section.id}`;
+                currentSection = `/#${section.id}`;
             }
             break;
           }
@@ -53,13 +66,13 @@ export function Header() {
       setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); 
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [navLinks]);
+  }, [pathname, navLinks]);
 
 
 
@@ -106,7 +119,7 @@ export function Header() {
               </div>
             </SheetContent>
           </Sheet>
-          <a href="#contact" className="hidden md:block">
+          <a href="/#contact" className="hidden md:block">
             <Button className="bg-accent text-accent-foreground hover:bg-accent/90">Book Now</Button>
           </a>
         </div>

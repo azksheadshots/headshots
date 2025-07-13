@@ -7,12 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Shirt } from 'lucide-react';
+import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Shirt, Quote } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import AttireStyler from '@/components/attire-styler';
 import { sendEmailAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 type SelectedPackage = {
   name: string;
@@ -84,6 +85,29 @@ export default function Home() {
       title: 'The Power of a Professional Image',
       excerpt: 'In today\'s digital world, your headshot is your first impression. Make it count.',
     },
+  ];
+
+  const testimonials = [
+    {
+      quote: "The best headshot experience I've ever had. Professional, fun, and the results were outstanding. I've already recommended them to my entire team.",
+      name: 'Sarah L.',
+      title: 'Marketing Director, Tech Corp'
+    },
+    {
+      quote: "I used to hate having my picture taken, but they made me feel so comfortable. The photos are amazing and have made a huge difference on my LinkedIn profile.",
+      name: 'David R.',
+      title: 'Software Engineer'
+    },
+    {
+        quote: "As an actor, your headshot is everything. KS Headshots captured my personality perfectly. I started getting more callbacks almost immediately!",
+        name: 'Jessica M.',
+        title: 'Actor'
+    },
+    {
+        quote: "Incredibly efficient and professional. They came to our office and made the process seamless for our team of 50. The quality is top-notch.",
+        name: 'Mark C.',
+        title: 'CEO, Finance Solutions'
+    }
   ];
 
   const individualPackages = [
@@ -426,7 +450,44 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="clothing-styler" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+              <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                  <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Don't Just Take Our Word For It</h2>
+                  <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
+                      See what our clients have to say about their experience.
+                  </p>
+              </div>
+              <div className="mt-12">
+                  <Carousel
+                    opts={{
+                      align: "start",
+                      loop: true,
+                    }}
+                    className="w-full max-w-4xl mx-auto"
+                  >
+                    <CarouselContent>
+                      {testimonials.map((testimonial, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2">
+                           <Card className="h-full">
+                                <CardContent className="pt-6 flex flex-col items-center text-center justify-center h-full">
+                                    <Quote className="h-8 w-8 text-primary mb-4" />
+                                    <p className="text-muted-foreground mb-4 flex-grow">"{testimonial.quote}"</p>
+                                    <div className="font-bold text-primary">{testimonial.name}</div>
+                                    <div className="text-sm text-muted-foreground">{testimonial.title}</div>
+                                </CardContent>
+                            </Card>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </Carousel>
+              </div>
+          </div>
+        </section>
+
+        <section id="clothing-styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">KS Powered Clothing Styler</h2>
@@ -440,7 +501,7 @@ export default function Home() {
            </div>
         </section>
 
-        <section id="about" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -463,7 +524,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="blog" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="blog" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">From Our Blog</h2>
