@@ -328,7 +328,7 @@ export default function Home() {
                     <Shirt className="h-10 w-10 text-primary-foreground transition-transform duration-300 group-hover:scale-110" strokeWidth={1.5} />
                     <div className="space-y-1">
                       <h3 className="text-2xl font-bold tracking-tight">Don&apos;t know what to wear for your headshot?</h3>
-                      <p className="text-lg font-medium text-primary-foreground/80 underline underline-offset-4 group-hover:text-primary-foreground">Try our free KS Powered Clothing Styler</p>
+                      <p className="text-lg font-medium text-primary-foreground/80 underline underline-offset-4 group-hover:text-primary-foreground">Try our free KS Clothing Styler</p>
                     </div>
                   </div>
                 </CardContent>
@@ -562,7 +562,7 @@ export default function Home() {
         <section id="clothing-styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
            <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">AI Attire Styler for Headshots</h2>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">KS Clothing Styler</h2>
               <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
                 Not sure what to wear? Enter your profession and let our AI suggest the perfect attire for your headshot.
               </p>

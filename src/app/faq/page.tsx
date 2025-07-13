@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const faqData = [
     {
       question: 'What should I wear for my headshot?',
-      answer: "We recommend wearing solid colors that complement your skin tone. For Phoenix professionals, classic and modern looks work well. Avoid busy patterns, logos, or anything that might distract from your face. The most important thing is to wear something you feel confident and comfortable in. You can also try our 'AI Attire Styler' on the homepage for AI-powered suggestions!",
+      answer: "We recommend wearing solid colors that complement your skin tone. For Phoenix professionals, classic and modern looks work well. Avoid busy patterns, logos, or anything that might distract from your face. The most important thing is to wear something you feel confident and comfortable in. You can also try our 'KS Clothing Styler' on the homepage for AI-powered suggestions!",
     },
     {
       question: 'How long does a session take?',
