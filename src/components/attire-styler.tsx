@@ -58,7 +58,7 @@ export function AttireStyler() {
   };
 
   return (
-    <section id="styler" className="w-full bg-muted py-8">
+    <section id="styler" className="w-full bg-muted py-[25px]">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <Wand2 className="h-12 w-12 text-primary" />
