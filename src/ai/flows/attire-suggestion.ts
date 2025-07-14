@@ -13,7 +13,7 @@ const attireSuggestionPrompt = ai.definePrompt({
     name: 'attireSuggestionPrompt',
     model: googleAI.model('gemini-1.5-flash-latest'),
     input: { schema: AttireSuggestionInputSchema },
-    output: { schema: AttireSuggestionOutputSchema },
+    output: { schema: AttireSuggestionOutputSchema, format: 'json' },
     prompt: `You are a professional fashion stylist specializing in headshot photography.
 
 Your task is to provide concise and professional outfit suggestions for a headshot based on the user's profession.

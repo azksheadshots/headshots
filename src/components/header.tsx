@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/#services', label: 'Services', id: 'services' },
   { href: '/#pricing', label: 'Pricing', id: 'pricing' },
   { href: '/#portfolio', label: 'Portfolio', id: 'portfolio' },
+  { href: '/#styler', label: 'Styler', id: 'styler' },
   { href: '/#about', label: 'About', id: 'about' },
   { href: '/#blog', label: 'Blog', id: 'blog' },
   { href: '/#contact', label: 'Contact', id: 'contact' },
@@ -74,7 +75,8 @@ export default function Header() {
                 href={link.href} 
                 className={cn(
                   "text-sm font-bold text-primary-foreground/80 transition-colors hover:text-accent",
-                  activeSection === link.id && "text-accent border-b-2 border-accent"
+                  activeSection === link.id && "text-accent border-b-2 border-accent",
+                  pathname === link.href && "text-accent border-b-2 border-accent"
                 )}
               >
                 {link.label}
@@ -111,3 +113,5 @@ export default function Header() {
     </header>
   );
 }
+
+    
