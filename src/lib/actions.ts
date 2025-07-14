@@ -1,4 +1,4 @@
-''use server';
+'use server';
 
 import { Resend } from 'resend';
 
@@ -41,4 +41,3 @@ export async function sendEmailAction(formData: FormData): Promise<{ success: bo
         return { success: false, error: 'Failed to send message. Please try again later.' };
     }
 }
-
