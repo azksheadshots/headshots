@@ -13,7 +13,6 @@ const navLinks = [
   { href: '/#services', label: 'Services', id: 'services' },
   { href: '/#pricing', label: 'Pricing', id: 'pricing' },
   { href: '/#portfolio', label: 'Portfolio', id: 'portfolio' },
-  { href: '/#styler', label: 'Styler', id: 'styler' },
   { href: '/#about', label: 'About', id: 'about' },
   { href: '/#blog', label: 'Blog', id: 'blog' },
   { href: '/#contact', label: 'Contact', id: 'contact' },
@@ -113,5 +112,3 @@ export default function Header() {
     </header>
   );
 }
-
-    

@@ -18,7 +18,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'ksheadshots-website-images', // <-- REPLACE THIS WITH YOUR S3 BUCKET HOSTNAME
+        hostname: 'your-bucket-name.s3.amazonaws.com', // <-- REPLACE THIS WITH YOUR S3 BUCKET HOSTNAME
         port: '',
         pathname: '/**',
       },
