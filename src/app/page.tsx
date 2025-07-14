@@ -319,7 +319,7 @@ export default function Home() {
         </section>
 
         {/* The Problem Section */}
-        <section id="problem" className="w-full pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-24 lg:pb-32">
+        <section id="problem" className="w-full pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-24 lg:pb-32 bg-background">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Is Your Headshot Holding You Back in the Phoenix Market?</h2>
@@ -372,7 +372,7 @@ export default function Home() {
         </section>
         
         {/* The Plan Section */}
-        <section id="plan" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="plan" className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Simple 3-Step Plan</h2>
@@ -432,7 +432,7 @@ export default function Home() {
         </section>
 
         {/* Pricing Section - Individual */}
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Clear Pricing for Phoenix Headshots</h2>
@@ -500,10 +500,12 @@ export default function Home() {
         </section>
         
         {/* AI Styler Section */}
-        <AttireStyler />
+        <section id="styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+          <AttireStyler />
+        </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="testimonials" className="w-full bg-background py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                   <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Don't Just Take Our Word For It</h2>
@@ -540,7 +542,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -563,7 +565,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="blog" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="blog" className="w-full bg-background py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">From Our Blog</h2>
@@ -597,7 +599,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full bg-background py-12 md:py-24 lg:py-32">
+        <section id="contact" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-16">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
