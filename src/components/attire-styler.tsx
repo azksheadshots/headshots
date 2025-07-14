@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -57,20 +58,19 @@ export function AttireStyler() {
   };
 
   return (
-    <section id="styler" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+    <section id="styler" className="w-full bg-background py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <Wand2 className="h-12 w-12 text-primary" />
-          <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">AI Attire Styler</h2>
+          <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">KS Clothing Styler</h2>
           <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-            Not sure what to wear? Get instant, AI-powered attire suggestions tailored to your industry and desired impression.
+            Not sure what to wear? Get instant, KS-powered clothing suggestions tailored to your industry and desired impression.
           </p>
         </div>
         <div className="mx-auto mt-12 max-w-xl">
           <Card>
             <CardHeader>
-              <CardTitle>Get Your Suggestions</CardTitle>
-              <CardDescription>Tell us a bit about yourself, and our AI will do the rest.</CardDescription>
+              <CardDescription>Tell us a bit about yourself, and our clothing styler will do the rest.</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

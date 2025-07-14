@@ -341,11 +341,38 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
-        <AttireStyler />
 
+        {/* Services Section */}
+        <section id="services" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Headshot Services</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  We offer a range of specialized headshot services in Buckeye and across the Valley to meet your unique needs.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:max-w-none mt-12">
+              {services.map((service) => (
+                <Link key={service.slug} href={`/services/${service.slug}`} className="group">
+                    <Card className="bg-background border-secondary transition-all h-full group-hover:shadow-lg group-hover:-translate-y-1">
+                      <CardHeader className="items-center gap-4">
+                        {service.icon}
+                        <CardTitle className="text-2xl">{service.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-center">
+                        <p>{service.description}</p>
+                      </CardContent>
+                    </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+        
         {/* The Plan Section */}
-        <section id="plan" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="plan" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Simple 3-Step Plan</h2>
@@ -374,6 +401,32 @@ export default function Home() {
                <a href="#contact">
                     <Button size="lg" className="bg-primary-gradient text-primary-foreground">Get Started</Button>
                 </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Portfolio Section */}
+        <section id="portfolio" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Headshot Portfolio</h2>
+              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
+                We've helped hundreds of professionals in Phoenix, Goodyear, and Avondale elevate their image.
+              </p>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+              {portfolioImages.map((image, index) => (
+                <div key={index} className="overflow-hidden rounded-lg">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    data-ai-hint={image.hint}
+                    width={400}
+                    height={600}
+                    className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105 aspect-[2/3]"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -451,60 +504,10 @@ export default function Home() {
             </div>
         </section>
 
+        {/* AI Styler Section */}
+        <AttireStyler />
 
-        <section id="services" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Our Headshot Services</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  We offer a range of specialized headshot services in Buckeye and across the Valley to meet your unique needs.
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:max-w-none mt-12">
-              {services.map((service) => (
-                <Link key={service.slug} href={`/services/${service.slug}`} className="group">
-                    <Card className="bg-background border-secondary transition-all h-full group-hover:shadow-lg group-hover:-translate-y-1">
-                      <CardHeader className="items-center gap-4">
-                        {service.icon}
-                        <CardTitle className="text-2xl">{service.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="text-center">
-                        <p>{service.description}</p>
-                      </CardContent>
-                    </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="portfolio" className="w-full bg-muted py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Headshot Portfolio</h2>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed">
-                We've helped hundreds of professionals in Phoenix, Goodyear, and Avondale elevate their image.
-              </p>
-            </div>
-            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
-              {portfolioImages.map((image, index) => (
-                <div key={index} className="overflow-hidden rounded-lg">
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    data-ai-hint={image.hint}
-                    width={400}
-                    height={600}
-                    className="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105 aspect-[2/3]"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        {/* Testimonials Section */}
         <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
