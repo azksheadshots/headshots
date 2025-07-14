@@ -341,7 +341,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-
+        
         {/* Services Section */}
         <section id="services" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
