@@ -29,7 +29,7 @@ export type AttireSuggestionOutput = z.infer<typeof AttireSuggestionOutputSchema
 
 const prompt = ai.definePrompt({
   name: 'attireSuggestionPrompt',
-  model: 'googleai/gemini-1.5-flash-latest',
+  model: 'googleai/gemini-1.5-pro-latest',
   input: {schema: AttireSuggestionInputSchema},
   output: {schema: AttireSuggestionOutputSchema},
   prompt: `You are an expert fashion stylist specializing in professional headshots.
