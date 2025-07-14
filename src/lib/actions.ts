@@ -1,7 +1,8 @@
-
 'use server';
 
 import { Resend } from 'resend';
+import { suggestAttire, AttireSuggestionInput } from '@/ai/flows/attire-suggestion';
+
 
 export async function sendEmailAction(formData: FormData): Promise<{ success: boolean; error?: string; }> {
     const apiKey = process.env.RESEND_API_KEY;
@@ -43,4 +44,16 @@ export async function sendEmailAction(formData: FormData): Promise<{ success: bo
     }
 }
 
-    
+export async function getAttireSuggestionAction(input: AttireSuggestionInput) {
+    try {
+        const result = await suggestAttire(input);
+        if (result && result.suggestions.length > 0) {
+            return { success: true, suggestions: result.suggestions };
+        } else {
+            return { success: false, error: 'The AI could not generate suggestions for this combination. Please try different terms.' };
+        }
+    } catch (e) {
+        console.error('Error in getAttireSuggestionAction: ', e);
+        return { success: false, error: 'An unexpected error occurred while fetching AI suggestions.' };
+    }
+}

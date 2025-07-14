@@ -9,8 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Wand2, Loader2, AlertCircle, Sparkles } from 'lucide-react';
-import { AttireSuggestionInput, AttireSuggestionInputSchema, AttireSuggestionOutput } from '@/ai/flows/attire-suggestion';
-import { suggestAttire } from '@/ai/flows/attire-suggestion';
+import { getAttireSuggestionAction } from '@/lib/actions';
 
 const FormSchema = z.object({
   industry: z.string().min(2, 'Industry is required.'),
@@ -19,8 +18,14 @@ const FormSchema = z.object({
 
 type FormValues = z.infer<typeof FormSchema>;
 
+type Suggestion = {
+    title: string;
+    description: string;
+    items: string[];
+};
+
 export function AttireStyler() {
-  const [suggestions, setSuggestions] = useState<AttireSuggestionOutput | null>(null);
+  const [suggestions, setSuggestions] = useState<Suggestion[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,11 +42,11 @@ export function AttireStyler() {
     setError(null);
     setSuggestions(null);
     try {
-      const result = await suggestAttire(data);
-      if (result && result.suggestions.length > 0) {
-        setSuggestions(result);
+      const result = await getAttireSuggestionAction(data);
+      if (result.success && result.suggestions) {
+        setSuggestions(result.suggestions);
       } else {
-        setError('The AI could not generate suggestions for this combination. Please try different terms.');
+        setError(result.error || 'The AI could not generate suggestions. Please try different terms.');
       }
     } catch (e) {
       console.error(e);
@@ -103,10 +108,10 @@ export function AttireStyler() {
             </div>
           )}
 
-          {suggestions && suggestions.suggestions.length > 0 && (
+          {suggestions && suggestions.length > 0 && (
             <div className="mt-12 space-y-8">
                 <h3 className="text-2xl font-bold text-center text-primary">Your Style Recommendations</h3>
-              {suggestions.suggestions.map((suggestion, index) => (
+              {suggestions.map((suggestion, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-primary">

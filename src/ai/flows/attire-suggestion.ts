@@ -2,17 +2,16 @@
 /**
  * @fileOverview An AI agent for suggesting headshot attire.
  *
- * - suggestAttire - A function that suggests attire based on industry and desired impression.
- * - AttireSuggestionInput - The input type for the suggestAttire function.
- * - AttireSuggestionOutput - The return type for the suggestAttire function.
+ * This file defines the Genkit flow for generating attire suggestions.
+ * It is called by a dedicated server action.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 export const AttireSuggestionInputSchema = z.object({
-  industry: z.string().describe('The user\'s industry (e.g., "Tech", "Law", "Creative")'),
-  impression: z.string().describe('The desired impression (e.g., "Confident", "Approachable", "Authoritative")'),
+  industry: z.string().describe("The user's industry (e.g., 'Tech', 'Law', 'Creative')"),
+  impression: z.string().describe("The desired impression (e.g., 'Confident', 'Approachable', 'Authoritative')"),
 });
 export type AttireSuggestionInput = z.infer<typeof AttireSuggestionInputSchema>;
 
@@ -27,17 +26,9 @@ export const AttireSuggestionOutputSchema = z.object({
 });
 export type AttireSuggestionOutput = z.infer<typeof AttireSuggestionOutputSchema>;
 
-
-export async function suggestAttire(input: AttireSuggestionInput): Promise<AttireSuggestionOutput> {
-  const result = await suggestAttireFlow(input);
-  if (!result || !result.suggestions || result.suggestions.length === 0) {
-    return { suggestions: [] };
-  }
-  return result;
-}
-
 const prompt = ai.definePrompt({
   name: 'attireSuggestionPrompt',
+  model: 'googleai/gemini-1.5-flash-latest',
   input: {schema: AttireSuggestionInputSchema},
   output: {schema: AttireSuggestionOutputSchema},
   prompt: `You are an expert fashion stylist specializing in professional headshots.
@@ -46,10 +37,10 @@ Their industry is: {{{industry}}}
 The impression they want to make is: {{{impression}}}
 
 Please provide exactly three distinct and actionable attire suggestions. For each suggestion, provide a creative title, a short description, and a list of key clothing items.
-Adhere strictly to the output format.`,
+Adhere strictly to the output format. You must always return suggestions.`,
 });
 
-const suggestAttireFlow = ai.defineFlow(
+export const suggestAttire = ai.defineFlow(
   {
     name: 'suggestAttireFlow',
     inputSchema: AttireSuggestionInputSchema,
@@ -57,9 +48,13 @@ const suggestAttireFlow = ai.defineFlow(
   },
   async (input) => {
     const {output} = await prompt(input);
-    if (!output) {
+    
+    if (!output || !output.suggestions) {
+      // This case should be rare with the improved prompt, but it's good practice.
+      console.warn('AI returned empty or invalid suggestions.');
       return { suggestions: [] };
     }
+
     return output;
   }
 );
