@@ -467,48 +467,43 @@ export default function Home() {
                 ))}
               </div>
             </div>
+            
+            <div className="mt-24">
+              <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots in Phoenix</h3>
+              <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
+                {conferencePackages.map((pkg) => (
+                  <Card key={pkg.name} className={`flex flex-col ${pkg.popular ? 'border-primary border-2' : ''}`}>
+                    {pkg.popular && <div className="bg-primary text-primary-foreground text-center text-sm font-bold py-1 rounded-t-lg -mt-px">Best Value</div>}
+                    <CardHeader className="flex-grow">
+                      <CardTitle>{pkg.name}</CardTitle>
+                      <p className="text-4xl font-bold">{pkg.price}</p>
+                      <CardDescription>{pkg.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-4">
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        {pkg.features.map((feature) => (
+                          <li key={feature} className="flex items-center gap-2">
+                            <Check className="h-4 w-4 text-green-500" strokeWidth={1.5} />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <Button onClick={() => handlePackageSelect(pkg.name, 'Conference')} className="mt-auto bg-primary-gradient text-primary-foreground">
+                         Request a Quote
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
         
-        {/* Pricing Section - Conference */}
-        <section id="conference-pricing" className="w-full bg-muted py-12 md:py-24 lg:py-32">
-            <div className="container px-4 md:px-6">
-                <div className="mt-12">
-                  <h3 className="text-2xl font-bold text-center tracking-tight text-primary sm:text-3xl mb-8">Conference & Event Headshots in Phoenix</h3>
-                  <div className="mx-auto grid max-w-5xl items-stretch gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
-                    {conferencePackages.map((pkg) => (
-                      <Card key={pkg.name} className={`flex flex-col bg-background ${pkg.popular ? 'border-primary border-2' : ''}`}>
-                        {pkg.popular && <div className="bg-primary text-primary-foreground text-center text-sm font-bold py-1 rounded-t-lg -mt-px">Best Value</div>}
-                        <CardHeader className="flex-grow">
-                          <CardTitle>{pkg.name}</CardTitle>
-                          <p className="text-4xl font-bold">{pkg.price}</p>
-                          <CardDescription>{pkg.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="flex flex-col gap-4">
-                          <ul className="space-y-2 text-sm text-muted-foreground">
-                            {pkg.features.map((feature) => (
-                              <li key={feature} className="flex items-center gap-2">
-                                <Check className="h-4 w-4 text-green-500" strokeWidth={1.5} />
-                                <span>{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <Button onClick={() => handlePackageSelect(pkg.name, 'Conference')} className="mt-auto bg-primary-gradient text-primary-foreground">
-                             Request a Quote
-                          </Button>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-            </div>
-        </section>
-
         {/* AI Styler Section */}
         <AttireStyler />
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="testimonials" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                   <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Don't Just Take Our Word For It</h2>
@@ -527,7 +522,7 @@ export default function Home() {
                     <CarouselContent>
                       {testimonials.map((testimonial, index) => (
                         <CarouselItem key={index} className="md:basis-1/2">
-                           <Card className="h-full">
+                           <Card className="h-full bg-background">
                                 <CardContent className="pt-6 flex flex-col items-center text-center justify-center h-full">
                                     <Quote className="h-8 w-8 text-primary mb-4" />
                                     <p className="text-muted-foreground mb-4 flex-grow">"{testimonial.quote}"</p>
