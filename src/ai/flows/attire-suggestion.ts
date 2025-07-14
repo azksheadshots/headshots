@@ -2,8 +2,8 @@
 /**
  * @fileOverview An AI agent for suggesting headshot attire.
  *
- * This file defines the Genkit flow for generating attire suggestions.
- * It is called by a dedicated server action.
+ * This file defines the Genkit flow for generating attire suggestions
+ * and exports a simple server action to invoke it.
  */
 
 import {ai} from '@/ai/genkit';
@@ -26,6 +26,7 @@ export const AttireSuggestionOutputSchema = z.object({
 });
 export type AttireSuggestionOutput = z.infer<typeof AttireSuggestionOutputSchema>;
 
+
 const prompt = ai.definePrompt({
   name: 'attireSuggestionPrompt',
   model: 'googleai/gemini-1.5-flash-latest',
@@ -40,7 +41,7 @@ Please provide exactly three distinct and actionable attire suggestions. For eac
 Adhere strictly to the output format. You must always return suggestions.`,
 });
 
-export const suggestAttire = ai.defineFlow(
+const suggestAttireFlow = ai.defineFlow(
   {
     name: 'suggestAttireFlow',
     inputSchema: AttireSuggestionInputSchema,
@@ -58,3 +59,9 @@ export const suggestAttire = ai.defineFlow(
     return output;
   }
 );
+
+// This is the exported server action that the UI will call.
+// It wraps the Genkit flow and handles its execution.
+export async function suggestAttire(input: AttireSuggestionInput): Promise<AttireSuggestionOutput> {
+    return await suggestAttireFlow(input);
+}

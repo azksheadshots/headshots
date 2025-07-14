@@ -1,7 +1,7 @@
 'use server';
 
 import { Resend } from 'resend';
-import { suggestAttire, AttireSuggestionInput } from '@/ai/flows/attire-suggestion';
+import { suggestAttire, type AttireSuggestionInput } from '@/ai/flows/attire-suggestion';
 
 
 export async function sendEmailAction(formData: FormData): Promise<{ success: boolean; error?: string; }> {
@@ -46,6 +46,7 @@ export async function sendEmailAction(formData: FormData): Promise<{ success: bo
 
 export async function getAttireSuggestionAction(input: AttireSuggestionInput) {
     try {
+        // Now calling the simple wrapper function from the flow file.
         const result = await suggestAttire(input);
         if (result && result.suggestions.length > 0) {
             return { success: true, suggestions: result.suggestions };
