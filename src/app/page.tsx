@@ -7,13 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Shirt, Quote } from 'lucide-react';
+import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Quote } from 'lucide-react';
 import Header from '@/components/header';
 import { Footer } from '@/components/footer';
 import { sendEmailAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Head from 'next/head';
+import { AttireStyler } from '@/components/attire-styler';
 
 type SelectedPackage = {
   name: string;
@@ -340,6 +341,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+        
+        <AttireStyler />
 
         {/* The Plan Section */}
         <section id="plan" className="w-full bg-muted py-12 md:py-24 lg:py-32">
@@ -642,7 +645,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
