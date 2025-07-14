@@ -1,6 +1,24 @@
 'use server';
 
 import { Resend } from 'resend';
+import { attireSuggestion } from '@/ai/flows/attire-suggestion';
+import type { AttireSuggestionInput, AttireSuggestionOutput } from '@/ai/schemas';
+
+export async function getAttireSuggestionAction(input: AttireSuggestionInput): Promise<AttireSuggestionOutput> {
+    try {
+        const result = await attireSuggestion(input);
+        return result;
+    } catch (error) {
+        console.error('Error in getAttireSuggestionAction:', error);
+        if (error instanceof Error) {
+            // Re-throw the error to be caught by the client-side component
+            throw new Error(error.message || 'An unexpected error occurred in the AI flow.');
+        }
+        // For non-Error objects, throw a generic message
+        throw new Error('An unexpected error occurred.');
+    }
+}
+
 
 export async function sendEmailAction(formData: FormData): Promise<{ success: boolean; error?: string; }> {
     const apiKey = process.env.RESEND_API_KEY;

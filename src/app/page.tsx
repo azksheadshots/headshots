@@ -6,13 +6,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Quote } from 'lucide-react';
+import { Briefcase, Drama, User, Mail, Phone, MapPin, CheckCircle, XCircle, Check, Clock, Quote, Wand2, Loader2 } from 'lucide-react';
 import Header from '@/components/header';
 import { Footer } from '@/components/footer';
-import { sendEmailAction } from '@/lib/actions';
+import { sendEmailAction, getAttireSuggestionAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Head from 'next/head';
+import type { AttireSuggestionOutput } from '@/ai/schemas';
+
 
 type SelectedPackage = {
   name: string;
@@ -22,6 +24,12 @@ type SelectedPackage = {
 export default function Home() {
   const [selectedPackage, setSelectedPackage] = useState<SelectedPackage>({ name: '', type: '' });
   const { toast } = useToast();
+
+  // AI Styler State
+  const [profession, setProfession] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [suggestion, setSuggestion] = useState<AttireSuggestionOutput | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handlePackageSelect = (packageName: string, packageType: 'Individual' | 'Conference') => {
     setSelectedPackage({ name: packageName, type: packageType });
@@ -217,6 +225,32 @@ export default function Home() {
     ? `${selectedPackage.type} Package: ${selectedPackage.name}`
     : '';
 
+  const handleStylerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!profession) {
+      setError('Please enter a profession.');
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    setSuggestion(null);
+
+    try {
+      const result = await getAttireSuggestionAction({ profession });
+      setSuggestion(result);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred. Please try again.');
+      }
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -290,31 +324,53 @@ export default function Home() {
       </Head>
       <Header />
       <main className="flex-1">
-        {/* Hero Section */}
-        <section id="home" className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center text-center text-white">
-          <Image
-            src="https://placehold.co/1920x1080.png"
-            alt="Confident professional in a Phoenix headshot session"
-            data-ai-hint="professional headshot"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/50" />
-          <div className="container relative px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-6">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                Headshot Photographer for Phoenix & Buckeye Professionals
-              </h1>
-              <p className="max-w-[700px] text-lg md:text-xl">
-                In a world of first impressions, a professional headshot is your greatest asset. We help you get one you&apos;ll be proud of.
-              </p>
-              <Button asChild size="lg" className="bg-primary-gradient text-primary-foreground">
-                <a href="#contact">Book Your Session</a>
-              </Button>
+        <div className="relative">
+          {/* Hero Section */}
+          <section id="home" className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center text-center text-white">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Confident professional in a Phoenix headshot session"
+              data-ai-hint="professional headshot"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="container relative px-4 md:px-6">
+              <div className="flex flex-col items-center space-y-6">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                  Headshot Photographer for Phoenix & Buckeye Professionals
+                </h1>
+                <p className="max-w-[700px] text-lg md:text-xl">
+                  In a world of first impressions, a professional headshot is your greatest asset. We help you get one you&apos;ll be proud of.
+                </p>
+                <Button asChild size="lg" className="bg-primary-gradient text-primary-foreground">
+                  <a href="#contact">Book Your Session</a>
+                </Button>
+              </div>
             </div>
+          </section>
+
+          {/* AI Styler CTA Card */}
+          <div className="relative container -mt-24 z-10 px-4 md:px-6">
+            <Card className="bg-primary text-primary-foreground p-8 md:p-10 shadow-2xl">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                  <div className="space-y-2">
+                      <h2 className="text-3xl font-bold tracking-tighter">Unsure What to Wear?</h2>
+                      <p className="text-primary-foreground/80 md:text-lg">
+                          Use our custom made styler to find the perfect look for your session.
+                      </p>
+                  </div>
+                  <Button asChild size="lg" variant="secondary" className="bg-accent text-accent-foreground hover:bg-accent/90 flex-shrink-0">
+                      <a href="#styler">
+                        <Wand2 className="mr-2 h-5 w-5" />
+                        Try the Free Styler
+                      </a>
+                  </Button>
+              </div>
+            </Card>
           </div>
-        </section>
+        </div>
 
         {/* The Problem Section */}
         <section id="problem" className="w-full pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-24 lg:pb-32 bg-background">
@@ -497,8 +553,74 @@ export default function Home() {
           </div>
         </section>
 
+        {/* AI Styler Section */}
+        <section id="styler" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">
+                AI Headshot Styler
+              </h2>
+              <p className="mt-4 text-muted-foreground md:text-xl">
+                Not sure what to wear? Enter your profession, and our AI stylist will give you some ideas.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-8 max-w-lg">
+              <form onSubmit={handleStylerSubmit} className="flex gap-2">
+                <Input
+                  type="text"
+                  value={profession}
+                  onChange={(e) => setProfession(e.target.value)}
+                  placeholder="e.g., Software Engineer, Lawyer, Doctor"
+                  className="flex-1"
+                  disabled={loading}
+                />
+                <Button type="submit" disabled={loading}>
+                  {loading ? (
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  ) : (
+                    <Wand2 className="h-5 w-5" />
+                  )}
+                  <span className="sr-only">Get Suggestion</span>
+                </Button>
+              </form>
+            </div>
+
+            <div className="mx-auto mt-8 max-w-4xl">
+              {error && (
+                <div className="text-center text-destructive bg-destructive/10 p-4 rounded-md">
+                  <p className="font-bold">An error occurred:</p>
+                  <p>{error}</p>
+                </div>
+              )}
+              {suggestion && (
+                <Card className="bg-background">
+                  <CardHeader>
+                    <CardTitle className="text-center">Suggestions for a {profession}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="grid gap-6 md:grid-cols-3">
+                      <div className="flex flex-col items-center text-center p-4 rounded-lg bg-muted">
+                          <h3 className="font-bold text-lg mb-2 text-primary">Masculine Style</h3>
+                          <p>{suggestion.male}</p>
+                      </div>
+                       <div className="flex flex-col items-center text-center p-4 rounded-lg bg-muted">
+                          <h3 className="font-bold text-lg mb-2 text-primary">Feminine Style</h3>
+                          <p>{suggestion.female}</p>
+                      </div>
+                       <div className="flex flex-col items-center text-center p-4 rounded-lg bg-muted">
+                          <h3 className="font-bold text-lg mb-2 text-primary">Gender-Neutral Style</h3>
+                          <p>{suggestion.neutral}</p>
+                      </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </div>
+        </section>
+
+
         {/* Testimonials Section */}
-        <section id="testimonials" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="testimonials" className="w-full bg-background py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                   <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">Don't Just Take Our Word For It</h2>
@@ -517,7 +639,7 @@ export default function Home() {
                     <CarouselContent>
                       {testimonials.map((testimonial, index) => (
                         <CarouselItem key={index} className="md:basis-1/2">
-                           <Card className="h-full bg-background">
+                           <Card className="h-full bg-muted">
                                 <CardContent className="pt-6 flex flex-col items-center text-center justify-center h-full">
                                     <Quote className="h-8 w-8 text-primary mb-4" />
                                     <p className="text-muted-foreground mb-4 flex-grow">"{testimonial.quote}"</p>
@@ -535,7 +657,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-background">
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
@@ -558,7 +680,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="blog" className="w-full bg-muted py-12 md:py-24 lg:py-32">
+        <section id="blog" className="w-full bg-background py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-5xl">From Our Blog</h2>
@@ -568,7 +690,7 @@ export default function Home() {
             </div>
             <div className="mx-auto mt-8 grid max-w-5xl gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-none">
               {blogPosts.map((post) => (
-                <Card key={post.slug} className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 bg-background">
+                <Card key={post.slug} className="overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1 bg-muted">
                   <Link href={`/blog/${post.slug}`}>
                     <Image
                       src={post.image}
@@ -592,7 +714,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="w-full bg-background py-12 md:py-24 lg:py-32">
+        <section id="contact" className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-16">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter text-primary md:text-4xl/tight">
