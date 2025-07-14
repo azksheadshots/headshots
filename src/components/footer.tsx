@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,7 +8,7 @@ export function Footer() {
       <div className="container flex flex-col items-center justify-between gap-6 px-4 py-8 md:flex-row md:px-6">
         <div className="flex flex-col items-center md:items-start gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.png" alt="KS Headshots Logo" width={180} height={75} />
+              <Image src="https://placehold.co/180x75.png" alt="KS Headshots Logo" width={180} height={75} className="object-contain" />
             </Link>
             <p className="text-sm text-primary-foreground/80">
                 © {new Date().getFullYear()} KS Headshots. All rights reserved.

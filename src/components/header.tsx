@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -10,75 +10,68 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { href: '/#services', label: 'Services' },
-  { href: '/#pricing', label: 'Pricing' },
-  { href: '/#portfolio', label: 'Portfolio' },
-  { href: '/#about', label: 'About' },
-  { href: '/#blog', label: 'Blog' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '/#services', label: 'Services', id: 'services' },
+  { href: '/#pricing', label: 'Pricing', id: 'pricing' },
+  { href: '/#portfolio', label: 'Portfolio', id: 'portfolio' },
+  { href: '/#about', label: 'About', id: 'about' },
+  { href: '/#blog', label: 'Blog', id: 'blog' },
+  { href: '/#contact', label: 'Contact', id: 'contact' },
 ];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     const handleScroll = () => {
-      const isHomepage = pathname === '/';
       setIsScrolled(window.scrollY > 10);
-
-      if (!isHomepage) {
-        setActiveSection('');
-        return;
-      }
-
-      let currentSection = '';
-      const sections = navLinks.map(link => document.getElementById(link.href.substring(2))).filter(Boolean);
-      
-      const conferenceSection = document.getElementById('conference-pricing');
-      if (conferenceSection) {
-        sections.push(conferenceSection);
-      }
-      
-      const testimonialsSection = document.getElementById('testimonials');
-      if (testimonialsSection) {
-        sections.push(testimonialsSection);
-      }
-
-      const scrollPosition = window.scrollY + 100; // Offset for header height
-
-      for (const section of sections) {
-        if (section) {
-          if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
-            
-            if(section.id === 'conference-pricing'){
-                currentSection = '/#pricing';
-            } else {
-                currentSection = `/#${section.id}`;
-            }
-            break;
-          }
-        }
-      }
-      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); 
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-50% 0px -50% 0px' }
+    );
+
+    navLinks.forEach((link) => {
+      const element = document.getElementById(link.id);
+      if (element) {
+        sectionRefs.current[link.id] = element;
+        observer.observe(element);
+      }
+    });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      Object.values(sectionRefs.current).forEach((ref) => {
+        if (ref) {
+          observer.unobserve(ref);
+        }
+      });
     };
   }, [pathname]);
-
-
 
   return (
     <header className={cn(`sticky top-0 z-50 w-full transition-colors duration-300`, isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground')}>
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link href="/" className="mr-6 flex items-center gap-2">
-          <Image src="/logo.png" alt="KS Headshots Logo" width={180} height={75} />
+          <Image src="https://placehold.co/180x75.png" alt="KS Headshots Logo" width={180} height={75} className="object-contain" />
         </Link>
         
         <div className="flex w-full items-center justify-end gap-4">
@@ -89,7 +82,7 @@ export default function Header() {
                 href={link.href} 
                 className={cn(
                   "text-sm font-bold text-primary-foreground/80 transition-colors hover:text-accent",
-                  activeSection === link.href && "text-accent border-b-2 border-accent"
+                  activeSection === link.id && "text-accent border-b-2 border-accent"
                 )}
               >
                 {link.label}
@@ -107,7 +100,7 @@ export default function Header() {
             <SheetContent side="right" className="bg-primary text-primary-foreground">
               <div className="grid gap-6 p-6">
                  <Link href="/" className="flex items-center gap-2">
-                    <Image src="/logo.png" alt="KS Headshots Logo" width={180} height={75} />
+                    <Image src="https://placehold.co/180x75.png" alt="KS Headshots Logo" width={180} height={75} className="object-contain" />
                 </Link>
                 {navLinks.map((link) => (
                     <Link key={link.href} href={link.href} className="text-lg font-medium text-primary-foreground/80 hover:text-accent">
