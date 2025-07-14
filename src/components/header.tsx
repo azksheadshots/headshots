@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
@@ -63,7 +62,8 @@ export default function Header() {
     <header className={cn(`sticky top-0 z-50 w-full transition-colors duration-300`, isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground')}>
       <div className="container flex h-16 items-center px-4 md:px-6">
         <Link href="/" className="mr-6 flex items-center gap-2">
-          <Image src="https://placehold.co/180x75.png" alt="KS Headshots Logo" width={180} height={75} className="object-contain" />
+          {/* Using a standard img tag to troubleshoot pathing issues */}
+          <img src="/logo.png" alt="KS Headshots Logo" style={{ height: '50px', width: 'auto', objectFit: 'contain' }} />
         </Link>
         
         <div className="flex w-full items-center justify-end gap-4">
@@ -92,7 +92,8 @@ export default function Header() {
             <SheetContent side="right" className="bg-primary text-primary-foreground">
               <div className="grid gap-6 p-6">
                  <Link href="/" className="flex items-center gap-2">
-                    <Image src="https://placehold.co/180x75.png" alt="KS Headshots Logo" width={180} height={75} className="object-contain" />
+                    {/* Using a standard img tag to troubleshoot pathing issues */}
+                    <img src="/logo.png" alt="KS Headshots Logo" style={{ height: '50px', width: 'auto', objectFit: 'contain' }} />
                 </Link>
                 {navLinks.map((link) => (
                     <Link key={link.href} href={link.href} className="text-lg font-medium text-primary-foreground/80 hover:text-accent">
