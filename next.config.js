@@ -18,11 +18,16 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'your-bucket-name.s3.amazonaws.com', // <-- REPLACE THIS WITH YOUR S3 BUCKET HOSTNAME
+        hostname: 'ksheadshots-website-images.s3.amazonaws.com', // <-- REPLACE THIS WITH YOUR S3 BUCKET HOSTNAME
         port: '',
         pathname: '/**',
       },
     ],
+  },
+  // Expose the environment variable to the Next.js runtime configuration.
+  // This makes it available on both the server-side and client-side.
+  publicRuntimeConfig: {
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
   },
 };
 

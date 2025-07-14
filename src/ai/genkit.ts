@@ -1,21 +1,34 @@
 
-import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/googleai';
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  /* config options here */
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'your-bucket-name.s3.amazonaws.com', // <-- REPLACE THIS WITH YOUR S3 BUCKET HOSTNAME
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
+  // Expose the environment variable to the Next.js runtime configuration.
+  // This makes it available on both the server-side and client-side.
+  publicRuntimeConfig: {
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+  },
+};
 
-const googleApiKey = process.env.GOOGLE_API_KEY;
-
-if (!googleApiKey) {
-  // This provides a clear error in the server logs if the key is missing.
-  console.error(
-    'FATAL: GOOGLE_API_KEY is not defined in the environment variables. The AI Styler will not function.'
-  );
-  throw new Error('GOOGLE_API_KEY is not defined.');
-}
-
-export const ai = genkit({
-  plugins: [
-    googleAI({
-      apiKey: googleApiKey,
-    }),
-  ],
-});
+module.exports = nextConfig;
