@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,6 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const pathname = usePathname();
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,34 +37,26 @@ export default function Header() {
       setActiveSection('');
       return;
     }
-
+    
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-50% 0px -50% 0px' }
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
+                }
+            });
+        },
+        { rootMargin: '-50% 0px -50% 0px' }
     );
 
-    navLinks.forEach((link) => {
-      const element = document.getElementById(link.id);
-      if (element) {
-        sectionRefs.current[link.id] = element;
-        observer.observe(element);
-      }
-    });
+    const elements = navLinks.map(link => document.getElementById(link.id)).filter(el => el);
+    elements.forEach(el => observer.observe(el));
 
     return () => {
-      Object.values(sectionRefs.current).forEach((ref) => {
-        if (ref) {
-          observer.unobserve(ref);
-        }
-      });
+        elements.forEach(el => observer.unobserve(el));
     };
-  }, [pathname]);
+}, [pathname]);
+
 
   return (
     <header className={cn(`sticky top-0 z-50 w-full transition-colors duration-300`, isScrolled ? 'border-b bg-primary/95 backdrop-blur-sm text-primary-foreground' : 'bg-primary text-primary-foreground')}>
