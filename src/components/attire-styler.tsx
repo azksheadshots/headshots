@@ -58,7 +58,7 @@ export function AttireStyler() {
   };
 
   return (
-    <section id="styler" className="w-full bg-muted py-12 md:py-16">
+    <section id="styler" className="w-full bg-muted py-12">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <Wand2 className="h-12 w-12 text-primary" />
@@ -110,7 +110,6 @@ export function AttireStyler() {
 
           {suggestions && suggestions.length > 0 && (
             <div className="mt-12 space-y-8">
-                <h3 className="text-2xl font-bold text-center text-primary">Your Style Recommendations</h3>
               {suggestions.map((suggestion, index) => (
                 <Card key={index} className="overflow-hidden">
                   <CardHeader>
